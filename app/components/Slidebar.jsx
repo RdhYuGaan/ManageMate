@@ -1,8 +1,8 @@
 import React from "react";
-import TaskAltIcon from "@mui/icons-material/TaskAltIcon";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";  
 import BorderAllIcon from "@mui/icons-material/BorderAll";
 import SplitscreenIcon from "@mui/icons-material/Splitscreen";
-import LogoutIcon from "@mui/icons-material/logout";
+import LogoutIcon from "@mui/icons-material/Logout"; 
 
 
 function SlideBar() {
@@ -17,8 +17,8 @@ function SlideBar() {
 
     function Menu() {
         return (
-            <div className="w-10 h-10 flex items-center justify-center rounded-md">
-                <TaskAltIcon 
+            <div className=" flex items-center flex-col gap-6 justify-center rounded-md">
+                <BorderAllIcon 
                     sx={{ fontSize: "41px" }}
                     className="font-bold text-orange-600"                    
                 />
@@ -37,9 +37,10 @@ function SlideBar() {
 
 
     function Profile() {
-        return 
+        return (
         <div className="w-7 h-7 bg-orange-700 rounded-md">
         </div>
+        )
     }
 
     function Logo() {
