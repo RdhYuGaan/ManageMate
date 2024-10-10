@@ -7,7 +7,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 function SlideBar() {
     return (
-        <div className="w-[97px] h-screen py-8 bg-white flex flex-col items-center justify-between border-r">
+        <div className="w-[60px] h-screen py-8 bg-white flex flex-col items-center justify-between border-r">
            < Logo />
            < Menu />
            < Profile />
@@ -19,7 +19,7 @@ function SlideBar() {
         return (
             <div className=" flex items-center flex-col gap-6 justify-center rounded-md">
                 <BorderAllIcon 
-                    sx={{ fontSize: "41px" }}
+                    sx={{ fontSize: "25px" }}
                     className="font-bold text-orange-600"                    
                 />
                 <SplitscreenIcon 
@@ -38,7 +38,7 @@ function SlideBar() {
 
     function Profile() {
         return (
-        <div className="w-7 h-7 bg-orange-700 rounded-md">
+        <div className="w-6 h-6 bg-orange-700 rounded-md">
         </div>
         )
     }
@@ -48,7 +48,7 @@ function SlideBar() {
             <div className=" flex items-center justify-center rounded-md">
                 <TaskAltIcon 
                     className="font-bold text-orange-600"
-                    sx={{ fontSize: "41px" }}
+                    sx={{ fontSize: "35px" }}
                 />
             </div>
         );
