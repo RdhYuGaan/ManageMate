@@ -9,7 +9,7 @@ function AllProjects(){
 
     function AllProjectsArea(){
         return (
-             <div className="w-[78%] p-10 flex flex-col gap-3">
+             <div className="w-[78%] p-9 flex flex-col gap-3">
                 <ProjectsHeader />
 
                 <ProjectsSubHeader />
