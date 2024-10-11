@@ -1,6 +1,6 @@
 import ProjectsHeader from "./ProjectHeader";
-import ProjectsSubHeader from "/ProjectsSubHeader";
-
+import  ProjectsSubHeader from "./ProjectsubHeader";
+import AllProjectsSection from "./AllProjectsSection";
 function AllProjects(){
     return (
         <div className="bg-slate-50 w-full flex min-h-screen">
@@ -14,6 +14,8 @@ function AllProjects(){
                 <ProjectsHeader />
 
                 <ProjectsSubHeader />
+
+                <AllProjectsSection />
             </div>
         ) ;
 
