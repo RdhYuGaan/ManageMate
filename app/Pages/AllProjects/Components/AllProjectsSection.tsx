@@ -1,5 +1,6 @@
 import React from "react";
-import SingleProjectCard from "./SingleProjectcard";
+
+import SingleProjectCard from "./SingleProjectCard";
 
 function AllProjectsSection(){
     return(

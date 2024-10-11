@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="flex w-full h-screen poppins ">
       <SlideBar />
-      <AllProjects />
+      {/* <AllProjects /> */}
     </div>
   );
 }
