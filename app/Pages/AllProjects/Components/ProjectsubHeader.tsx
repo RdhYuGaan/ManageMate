@@ -22,7 +22,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
     function SortByButton(){
         return(
             <div className="flex text-[15px] font-semibold gap-3">
-                <span className="text-slate-300"> Sort By</span>
+                <span className="text-slate-200"> Sort By</span>
                 <div className="text-slate-800">Recent Project</div>
                 <KeyboardArrowDownIcon sx={{fontsize:"19px"}} />
 
