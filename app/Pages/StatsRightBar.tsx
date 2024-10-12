@@ -10,9 +10,9 @@ function StatsRightBar(){
                 <Header />
                 <div className='flex-col flex gap-11 items-center justify-center mt-6'>
                      <CircularChart />
-                     <ProjectCompletedLables />
+                     <ProjectsCompletedLables />
                 </div>
-
+                <ProjectsList />
             </div>
         </div>
     );
@@ -26,6 +26,14 @@ function StatsRightBar(){
         );
     }
 
+    function ProjectsCompletedLables(){
+        return (
+            <div className='flex justify-center flex-col gpa-1 items-center'>
+                <p className='font-bold text-[17px]'>3 Completed</p>
+                <p className='text-slate-400 text-[13px]'>20 Tasks done</p>
+            </div>
+        );
+    }
 
     function CircularChart(){
         return (
@@ -42,9 +50,35 @@ function StatsRightBar(){
         );
     }
 
+    function ProjectsList(){
+        return (
+            
+            <ul className="flex flex-col gap-3 mt-16 mx-4 overflow-auto">
+            <SingleProject />
 
+            <hr className='w-[80%] mx-auto text-slate-100 opacity-50'></hr>
+            
+            <SingleProject />
+            <hr className='w-[80%] mx-auto text-slate-100 opacity-50'></hr>
 
+            <SingleProject />
+            </ul>
+        );
+
+        function SingleProject(){
+            return (
+                <li className='p-3 flex gap-2 items-center'>
+                    <div className='w-8 h-8 bg-orange-600 rounded-md
+                    justify-center items-center'>
+                        
+                    </div>
+                </li>
+            )
+        }
     
+    }
+
+
 }
 
 
