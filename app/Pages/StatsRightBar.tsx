@@ -10,7 +10,7 @@ function StatsRightBar(){
                 <Header />
                 <div className='flex-col flex gap-11 items-center justify-center mt-6'>
                      <CircularChart />
-                   
+                     <ProjectCompletedLables />
                 </div>
 
             </div>
@@ -25,6 +25,26 @@ function StatsRightBar(){
             </h2>
         );
     }
+
+
+    function CircularChart(){
+        return (
+            <div className='flex justify-center items-center'>
+                <div className='w-40 h-40 bg-slate-100 mt-5 rounded-full 
+                flex items-center justify-center'>
+                    <div className='w-[68%] flex justify-center items-center h-[86%]
+                    rounded-full bg-white'>
+                         <span className='text-xl font-semibold bg-orange-600'>90%</span>
+                    </div>
+                   
+                </div>
+            </div>
+        );
+    }
+
+
+
+    
 }
 
 
