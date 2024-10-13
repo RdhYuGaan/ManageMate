@@ -4,7 +4,7 @@ import SingleProjectCard from "./SingleProjectCard";
 
 function AllProjectsSection(){
     return(
-        <ul className="h-[78%] overflow-auto gap-4 flex-wrap mt-6">
+        <ul className="h-[78%] overflow-auto  gap-4 flex-wrap mt-6">
             <SingleProjectCard />
             <SingleProjectCard />
             <SingleProjectCard />

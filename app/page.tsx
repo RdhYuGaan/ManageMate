@@ -1,7 +1,8 @@
 import Image from "next/image";
 import SlideBar from "./components/Slidebar";
-import AllProjects from "./Pages/AllProjects/Components/ProjectsubHeader";
-import ProjectsHeader from "./Pages/AllProjects/Components/ProjectHeader";
+import AllProjects from "./Pages/AllProjects/Components/AllProjects";
+import AllProjectsSection from "./Pages/AllProjects/Components/AllProjectsSection";
+
 
 export default function Home() {
   return (
