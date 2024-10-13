@@ -1,7 +1,7 @@
 import ProjectsHeader from "./ProjectHeader";
 import  ProjectsSubHeader from "./ProjectsubHeader";
 import AllProjectsSection from "./AllProjectsSection";
-import StatsRightBar from "../../StatsRightBar";
+import StatsRightBar from "./StatsRightBar";
 
 function AllProjects(){
     return (
@@ -10,18 +10,24 @@ function AllProjects(){
             <StatsRightBar />
         </div>    
     );
-
-    function AllProjectsArea(){
-        return (
-             <div className="w-[78%] p-10 flex flex-col gap-3">
-                <ProjectsHeader />
-
-                <ProjectsSubHeader />
-
-                <AllProjectsSection />
-            </div>
-        ) ;
-
-    }
 }
+
+
+function AllProjectsArea(){
+    return (
+        <div className="w-[78%] p-10 flex flex-col gap-3">
+            <ProjectsHeader />
+
+            <ProjectsSubHeader />
+
+            <AllProjectsSection />
+        </div>
+    ) ;
+
+}
+
+
+
+
+
 export default AllProjects;

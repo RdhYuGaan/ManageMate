@@ -84,4 +84,4 @@ function StatsRightBar(){
 
 
 
-export default StatsRightBar
+export default StatsRightBar;
