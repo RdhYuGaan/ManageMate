@@ -44,15 +44,20 @@ function SingleProject(){
         <li className='p-3 flex gap-2 items-center'>
             <div className='w-8 h-8 bg-orange-600 rounded-md
             justify-center items-center'>
-                
+                <SplitscreenIcon sx={{fontSize:"19px"}} />
             </div>
+
+            <ul>
+                <li className='text-[14px] text-slate-800 font-semibold'>Project 1</li>
+                <li className='text-[12px] text-slate-500'>3 Tasks</li>
+            </ul>
         </li>
     );
 }
 
 function Header(){
     return(
-        <h2 className='text-[22px] font-bold text-center mt-7'>
+        <h2 className='text-[22px] font-bold text-slate-800 text-center mt-7'>
             Projects Completed...
         </h2>
     );
@@ -61,8 +66,8 @@ function Header(){
 function ProjectsCompletedLables(){
     return (
         <div className='flex justify-center flex-col gpa-1 items-center'>
-            <p className='font-bold text-[17px]'>3 Completed</p>
-            <p className='text-slate-400 text-[13px]'>20 Tasks done</p>
+            <p className='font-bold  text-slate-700 text-[17px]'>3 Completed</p>
+            <p className='text-slate-600 text-[13px]'>20 Tasks done</p>
         </div>
     );
 }
@@ -70,11 +75,11 @@ function ProjectsCompletedLables(){
 function CircularChart(){
     return (
         <div className='flex justify-center items-center'>
-            <div className='w-40 h-40 bg-slate-100 mt-5 rounded-full 
+            <div className='w-40 h-40 bg-slate-300 mt-5 rounded-full 
             flex items-center justify-center'>
-                <div className='w-[68%] flex justify-center items-center h-[86%]
+                <div className='w-[75%] h-[75%] flex justify-center items-center 
                 rounded-full bg-white'>
-                     <span className='text-xl font-semibold bg-orange-600'>90%</span>
+                     <span className='text-xl font-semibold rounded-lg text-orange-600'>90%</span>
                 </div>
                
             </div>
