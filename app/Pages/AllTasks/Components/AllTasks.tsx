@@ -1,13 +1,13 @@
 import TasksHeader from "./TasksHeader";
 import TasksSubHeader from "./TasksSubHeader";
 
-function AllTaskContainer() {
+function AllTasksContainer() {
     return (
-        <div>
+        <div className="bg-slate-50 w-full p-10">
             <TasksHeader />
             <TasksSubHeader />
         </div>
     );
 }
 
-export default AllTaskContainer;
+export default AllTasksContainer;

@@ -3,7 +3,7 @@ import SplitscreenIcon from "@mui/icons-material/Splitscreen";
 
 function TasksSubHeader() {
     return (
-        <div className="mt-24 flex justify-between items-center">
+        <div className="mt-24 flex justify-between  items-center">
             <MyProjectsText />
             <SortByButton />
         </div>
@@ -13,7 +13,7 @@ function TasksSubHeader() {
 function MyProjectsText() {  // Fixed naming to follow proper convention
     return (
         <div className="flex items-center gap-3">
-            <div className="w-[41px] h-[44px] -mt-1 flex justify-center bg-orange-100 rounded-md">
+            <div className="w-[40px] h-[40px] -mt-10 flex justify-center items-center bg-orange-100 rounded-md">
                 <SplitscreenIcon
                     sx={{ fontSize: "21px" }}
                     className="text-orange-600"
@@ -21,7 +21,7 @@ function MyProjectsText() {  // Fixed naming to follow proper convention
             </div>
             <ul className="flex flex-col gap-[7px]">
                 <li className="text-[17px] gap-2 flex font-semibold items-center">
-                    <div className="bg-slate-700 flex gap-2 items-center">
+                    <div className="text-slate-700 flex gap-2 items-center">
                         <span className="text-lg">All Projects</span>
                         <span className="bg-slate-700 text-white text-[14px] p-[2px] px-2 rounded-md">
                             6
@@ -30,8 +30,11 @@ function MyProjectsText() {  // Fixed naming to follow proper convention
                     <KeyboardArrowDownIcon className="text-slate-600 text-lg" />
                 </li>
                 <div className="flex items-center gap-1">
-                    <li className="h-[4px] w-[200px] text-[12px] rounded-md text-slate-200 overflow-auto"></li>
-                    <p className="text-[12px] ml-3 text-slate-200">20% Completed</p>
+                    <li className="text-[12px] h-[4px] w-[280px] bg-slate-400 rounded-md overflow-auto">
+                        <div className="w-1/2 height-[100%] rounded-r-xl bg-orange-600">
+                  
+                    <p className="text-[12px] ml-3 text-slate-600">20% Completed</p></div>
+                    </li>
                 </div>
             </ul>
         </div>
@@ -39,8 +42,16 @@ function MyProjectsText() {  // Fixed naming to follow proper convention
 }
 
 function SortByButton() {
-    // Placeholder for SortByButton component
-    return <div>Sort by Button</div>;
+    return (
+        <div className="flex text-[15px] font-semibold gap-3">
+            <span className="text-slate-600">Sort By</span>
+            <div className="flex gap-1 items-center cursor-pointer">
+                <span className="text-slate-800">Recent Tasks</span>
+                <KeyboardArrowDownIcon sx={{fontSize:"19px"}} />
+
+            </div>
+        </div>
+    )
 }
 
 export default TasksSubHeader;

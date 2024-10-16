@@ -1,5 +1,6 @@
-import SearchIcon from "@mui/icons-material/Add";
+import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from '@mui/icons-material/Add';
+import React from "react";
 
 function TaskHeader(){
     return (
@@ -19,7 +20,7 @@ function SearchBar(){
             w-11 justify-center flex items-center '>
                
                 <SearchIcon
-                    className='outline-none text-slate-200'
+                    className='outline-none text-slate-400'
                     sx={{ fontSize :"26px"}}
                 />
             </div>
