@@ -3,14 +3,14 @@ import SplitscreenIcon from "@mui/icons-material/Splitscreen";
 
 function TasksSubHeader() {
     return (
-        <div className="mt-24 flex justify-between  items-center">
+        <div className="mt-24 flex justify-between items-center">
             <MyProjectsText />
             <SortByButton />
         </div>
     );
 }
 
-function MyProjectsText() {  // Fixed naming to follow proper convention
+function MyProjectsText() {
     return (
         <div className="flex items-center gap-3">
             <div className="w-[40px] h-[40px] -mt-10 flex justify-center items-center bg-orange-100 rounded-md">
@@ -29,13 +29,14 @@ function MyProjectsText() {  // Fixed naming to follow proper convention
                     </div>
                     <KeyboardArrowDownIcon className="text-slate-600 text-lg" />
                 </li>
-                <div className="flex items-center gap-1">
-                    <li className="text-[12px] h-[4px] w-[280px] bg-slate-400 rounded-md overflow-auto">
-                        <div className="w-1/2 height-[100%] rounded-r-xl bg-orange-600">
-                  
-                    <p className="text-[12px] ml-3 text-slate-600">20% Completed</p></div>
-                    </li>
-                </div>
+                <li>
+                    <div className="flex items-center gap-1">
+                        <div className="text-[12px] h-[4px] w-[280px] bg-slate-400 rounded-md overflow-auto">
+                            <div className="w-1/5 h-[100%] rounded-r-xl bg-orange-600"></div>
+                        </div>
+                        <p className="text-[12px] ml-3 text-slate-600">20% Completed</p>
+                    </div>
+                </li>
             </ul>
         </div>
     );
@@ -47,11 +48,10 @@ function SortByButton() {
             <span className="text-slate-600">Sort By</span>
             <div className="flex gap-1 items-center cursor-pointer">
                 <span className="text-slate-800">Recent Tasks</span>
-                <KeyboardArrowDownIcon sx={{fontSize:"19px"}} />
-
+                <KeyboardArrowDownIcon sx={{ fontSize: "19px" }} />
             </div>
         </div>
-    )
+    );
 }
 
 export default TasksSubHeader;
