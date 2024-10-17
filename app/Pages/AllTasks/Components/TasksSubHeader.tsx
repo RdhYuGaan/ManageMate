@@ -32,9 +32,9 @@ function MyProjectsText() {
                 <li>
                     <div className="flex items-center gap-1">
                         <div className="text-[12px] h-[4px] w-[280px] bg-slate-400 rounded-md overflow-auto">
-                            <div className="w-1/5 h-[100%] rounded-r-xl bg-orange-600"></div>
+                            <div className="w-2/5 h-[100%] rounded-r-xl bg-orange-600"></div>
                         </div>
-                        <p className="text-[12px] ml-3 text-slate-600">20% Completed</p>
+                        <p className="text-[12px] ml-3 text-slate-500">40% Completed</p>
                     </div>
                 </li>
             </ul>
