@@ -5,8 +5,8 @@ function TasksList () {
     <div className='ml-12 mt-11 flex-col flex gap-4'>
         <Tabs />
         <div className='flec- flex-col gap-4'>
-            <SingleTask />
-            <SingleTask />
+            {/* <SingleTask />
+            <SingleTask /> */}
 
         </div>
     </div>
@@ -24,7 +24,13 @@ function Tabs(){
         <span className='px-2 bg-orange-400 text-white rounded-md'>7</span>
 
       </div>
+      <div className='text-slate-400 flex gap-2 items-center'>
+        <span>Completed Tasks</span>
+        <span className='rounded-md bg-slate-200 px-2'>8</span>
+      </div>
     </div>
 
   )
 }
+
+
