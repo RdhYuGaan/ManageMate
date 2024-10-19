@@ -1,3 +1,4 @@
+import { CheckBox } from '@mui/icons-material';
 import React from 'react'
 
 function TasksList () {
@@ -33,4 +34,22 @@ function Tabs(){
   )
 }
 
+function SingleTask(){
+  return (
+    <div className='flex gap-2 items-center'>
+      <CheckBox />
+      <div className='w-full bg-white rounded-lg border border-slate-100 flex
+       gap-3 items center justify-between p-5 py-6 '>
+        <div className='flex gap-3 items-center'>
+          <div>
+            <div className='bg-orange-200 rounded-lg p-2 flex items-center justify-between'>
+              <ListIcon className="text-orange-600" />
+            </div>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  )
+}
 
