@@ -9,9 +9,9 @@ import Checkbox from '@mui/icons-material/CheckBox';
 
 function TasksList() {
   return (
-    <div className="ml-12 mt-11 flex-col  bg-white flex gap-4">
+    <div className="ml-12 mt-11 flex-col  bg-white flex gap-4 border">
       <Tabs />
-      <div className="flex flex-col gap-4"> {/* Corrected class name 'flec-' to 'flex' */}
+      <div className="flex flex-col gap-4"> 
         <SingleTask />
         <SingleTask />
       </div>
