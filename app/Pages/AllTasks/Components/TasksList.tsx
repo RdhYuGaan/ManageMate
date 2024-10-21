@@ -1,7 +1,11 @@
-import { CheckBox } from '@mui/icons-material';
 import React from 'react';
 import ListIcon from '@mui/icons-material/List';
 import CachedIcon from '@mui/icons-material/Cached';
+import CircleIcon from '@mui/icons-material/Circle';
+import EditOutLinedIcon from '@mui/icons-material/EditOutLined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import Checkbox from '@mui/icons-material/CheckBox';
+
 
 function TasksList() {
   return (
@@ -35,7 +39,7 @@ function Tabs() {
 function SingleTask() {
   return (
     <div className="flex gap-2 items-center">
-      <CheckBox />
+      <Checkbox />
       <div className="w-full bg-white rounded-lg border border-slate-100 flex gap-3 items-center justify-between p-5 py-6">
         <div className="flex gap-3 items-center">
           <div>
@@ -64,6 +68,34 @@ function SingleTask() {
         <div className='flex gap-2 items-center'>
           <CachedIcon className="text-[24px] text-slate-400" />
           <span className='text-[14px] text-slate-400'>In Progress </span>
+        </div>
+
+        {/* priority */}
+        <div className='flex gap-2 items-center'>
+          <CircleIcon className="text-[10px] text-green-600" />
+          <span className='text-slate-400 text-[14px]'>
+            Low
+          </span>
+        </div>
+
+        {/* action button */}
+        <div className='flex gap-2 items-center'>
+
+          {/* edit button */}
+          <div className='rounded-lg p-2 flex items-center transition-all justify-center cursor-pointer bg-orange-200 hover:bg-orange-300'>
+            <EditOutLinedIcon 
+            sx={{fontSize:"17px"}}
+            className="text-orange-600" />
+
+          </div>
+
+          {/* delete button */}
+          <div className=' rounded-lg p-2 flex items-center justify-center cursor-pointer bg-slate-200 hover:bg-slate-300'>
+            <DeleteOutlineOutlinedIcon
+            sx={{fontSize:'17px'}}
+            className="text-slate-600" />
+          </div>
+
         </div>
       </div>
 
