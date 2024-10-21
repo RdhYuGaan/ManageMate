@@ -20,7 +20,7 @@ function SlideBar() {
             <div className=" flex items-center flex-col gap-6 justify-center rounded-md">
                 <BorderAllIcon 
                     sx={{ fontSize: "25px" }}
-                    className="font-bold text-orange-600"                    
+                    className="font-bold cursor-pointer text-orange-600"                    
                 />
                 <SplitscreenIcon 
                     sx={{ fontSize: "25px" }}
