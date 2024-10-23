@@ -5,12 +5,14 @@ import AllProjectsSection from "./Pages/AllProjects/Components/AllProjectsSectio
 import AllTasks from "./Pages/AllTasks/Components/AllTasks";
 import TasksList from "./Pages/AllTasks/Components/TasksList";
 
+
+
 export default function Home() {
   return (
     <div className="flex w-full h-screen poppins ">
       <SlideBar />
-      {/* <AllProjects />   */}
-      <TasksList />
+       {/* <AllProjects />    */}
+       <AllTasks /> 
        
     </div>
   );

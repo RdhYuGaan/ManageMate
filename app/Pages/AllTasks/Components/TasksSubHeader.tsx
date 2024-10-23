@@ -47,8 +47,11 @@ function SortByButton() {
         <div className="flex text-[15px] font-semibold gap-3">
             <span className="text-slate-600">Sort By</span>
             <div className="flex gap-1 items-center cursor-pointer">
-                <span className="text-slate-800">Recent Tasks</span>
-                <KeyboardArrowDownIcon sx={{ fontSize: "19px" }} />
+                <span className="text-slate-800">Recent Projects</span>
+                <KeyboardArrowDownIcon 
+                    sx={{ fontSize: "19px" }} 
+                    className="text-slate-800"
+                />
             </div>
         </div>
     );

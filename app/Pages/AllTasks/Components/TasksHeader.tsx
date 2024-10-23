@@ -39,10 +39,10 @@ function SearchBar(){
 
 function AddProjectButton(){
     return(
-        <button className='bg-orange-600 text-white px-2 pr-3 text-[14px] rounded-md flex gap-1 items-center'>
+        <button className='bg-orange-600 text-white px-2 pr-3 text-[14px] h-10 rounded-md flex gap-1 items-center'>
             <AddIcon sx={{fontSize:'22px'}}
             className='mt-[2px]' />
-            <span>New Tasks </span>
+            <span>New Tasks</span>
         
         </button>
     );
