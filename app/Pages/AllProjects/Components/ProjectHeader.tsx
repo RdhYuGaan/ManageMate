@@ -46,7 +46,7 @@ function AddProjectsButton(){
                 <span className='max-sm:hidden'>New Project </span>
         
             </button>
-            <MenuIcon className="text-slate-400 h-9 cursor-pointer hidden max-sm:block" />
+            <MenuIcon className="text-slate-400 h-9 cursor-pointer hidden max-[940px]:block" />
         </div>
         
     );

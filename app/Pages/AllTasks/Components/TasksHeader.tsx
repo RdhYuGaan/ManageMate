@@ -1,6 +1,7 @@
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from '@mui/icons-material/Add';
 import React from "react";
+import MenuIcon from '@mui/icons-material/Menu';
 
 function TaskHeader(){
     return (
@@ -39,15 +40,15 @@ function SearchBar(){
 
 function AddProjectButton(){
     return(
-        <button className='bg-orange-600 text-white px-2 pr-3 text-[14px] h-10 rounded-md flex gap-1 items-center'>
-            <AddIcon sx={{fontSize:'22px'}}
-            className='mt-[2px]' />
-            <span>New Tasks</span>
+        <div className="flex gap-3 items-center">
+            <button className='bg-orange-600 text-white px-2 pr-3 p-2 text-[14px] h-10 rounded-md flex gap-1 items-center'>
+                <AddIcon sx={{fontSize:'22px'}} className='mt-[2px]' />
+                <span className="max-sm:hidden pr-2">New Tasks</span>
         
-        </button>
+            </button>
+            <MenuIcon className="text-slate-400 h-9 cursor-pointer hidden max-sm:block" />     
+        </div>
     );
-
-    
 }
 
 

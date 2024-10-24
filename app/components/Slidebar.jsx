@@ -7,7 +7,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 function  SlideBar() {
     return (
-        <div className="w-[60px] h-screen py-8 bg-white flex flex-col items-center justify-between max-sm:hidden">
+        <div className="w-[97px] h-screen py-10 bg-white flex flex-col items-center justify-between max-[940px]:hidden">
            < Logo />
            < Menu />
            < Profile />

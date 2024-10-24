@@ -9,7 +9,7 @@ import Checkbox from '@mui/icons-material/CheckBox';
 
 function TasksList() {
   return (
-    <div className="ml-12 mt-11 flex-col  flex gap-4  ">
+    <div className="ml-12 mt-11 max-sm:ml-0 flex-col  flex gap-4  ">
       <Tabs />
       <div className="flex flex-col gap-4"> 
         <SingleTask />
@@ -26,11 +26,11 @@ function Tabs() {
     <div className="flex items-center mt-8 ml-3 gap-6 mb-5 ">
       <div className="flex gap-2 text-orange-400 font-semibold">
         <span>On Going Tasks</span>
-        <span className="px-2 bg-orange-400 text-white rounded-md">7</span>
+        <span className="px-2 bg-orange-400 text-white rounded-md max-[420px]:hidden">7</span>
       </div>
       <div className="text-slate-400 flex gap-2 items-center">
         <span>Completed Tasks</span>
-        <span className="rounded-md bg-slate-200 px-2">8</span>
+        <span className="rounded-md bg-slate-200 px-2 max-[420px]:hidden ">8</span>
       </div>
     </div>
   );
@@ -40,7 +40,7 @@ function SingleTask() {
   return (
     <div className="flex gap-2 items-center">
       <Checkbox />
-      <div className="w-full bg-white rounded-lg border border-slate-100 flex gap-3 items-center justify-between p-5 py-6">
+      <div className="w-full bg-white rounded-lg border border-slate-100 flex gap-3 items-center justify-between p-5 py-6 max-sm:p-4">
         <div className="flex gap-3 items-center">
           <div>
             {/* wallet icon */}
@@ -50,7 +50,7 @@ function SingleTask() {
           </div>
           {/* walllet name */}
           <div className="flex flex-col">
-            <span className="font-bold text-black hover:text-orange-600 cursor-pointer">
+            <span className="font-bold text-black hover:text-orange-600 cursor-pointer max-sm:text-sm">
               Create the UI design of the Task
             </span>
             <div className="flex">
@@ -62,14 +62,14 @@ function SingleTask() {
         </div>
         {/* status */}
 
-        <div className='flex gap-36 font-bold items-center'>
+        <div className='flex gap-36 font-bold items-center max-[770px]:hidden'>
           <div className='flex gap-2 items-center'>
            <CachedIcon className="text-[24px] text-slate-400" />
            <span className='text-[14px] text-slate-400'>In Progress </span>
           </div>
 
         {/* priority */}
-          <div className='flex gap-2 items-center'>
+          <div className='flex gap-2 items-center max-[940px]:hidden'>
             <CircleIcon className="text-[10px] text-green-600" />
             <span className='text-slate-400 text-[14px]'>
                 Low

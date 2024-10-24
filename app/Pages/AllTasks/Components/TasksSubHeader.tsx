@@ -12,18 +12,18 @@ function TasksSubHeader() {
 
 function MyProjectsText() {
     return (
-        <div className="flex items-center gap-3">
-            <div className="w-[40px] h-[40px] -mt-10 flex justify-center items-center bg-orange-100 rounded-md">
+        <div className="flex items-center max-sm:gap-2 gap-3">
+            <div className="w-[40px] h-[40px] -mt-10 flex justify-center items-center  bg-orange-100 rounded-md">
                 <SplitscreenIcon
                     sx={{ fontSize: "21px" }}
                     className="text-orange-600"
                 />
             </div>
-            <ul className="flex flex-col gap-[7px]">
+            <ul className="flex flex-col gap-[7px] max-sm:gap-[10px]">
                 <li className="text-[17px] gap-2 flex font-semibold items-center">
                     <div className="text-slate-700 flex gap-2 items-center">
                         <span className="text-lg">All Projects</span>
-                        <span className="bg-slate-700 text-white text-[14px] p-[2px] px-2 rounded-md">
+                        <span className="bg-slate-700 text-white text-[14px] p-[2px] px-2 rounded-md max-[420px]:hidden">
                             6
                         </span>
                     </div>
@@ -34,7 +34,9 @@ function MyProjectsText() {
                         <div className="text-[12px] h-[4px] w-[280px] bg-slate-400 rounded-md overflow-auto">
                             <div className="w-2/5 h-[100%] rounded-r-xl bg-orange-600"></div>
                         </div>
-                        <p className="text-[12px] ml-3 text-slate-500">40% Completed</p>
+                        <p className="text-[12px] ml-3 text-slate-500 max-sm:hidden">
+                            {" "}
+                            40% Completed</p>
                     </div>
                 </li>
             </ul>
@@ -44,7 +46,7 @@ function MyProjectsText() {
 
 function SortByButton() {
     return (
-        <div className="flex text-[15px] font-semibold gap-3">
+        <div className="flex text-[15px] max-sm:flex-col max-sm:gap-1 font-semibold gap-3">
             <span className="text-slate-600">Sort By</span>
             <div className="flex gap-1 items-center cursor-pointer">
                 <span className="text-slate-800">Recent Projects</span>
