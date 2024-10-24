@@ -5,9 +5,9 @@ import SplitscreenIcon from "@mui/icons-material/Splitscreen";
 import LogoutIcon from "@mui/icons-material/Logout"; 
 
 
-function SlideBar() {
+function  SlideBar() {
     return (
-        <div className="w-[60px] h-screen py-8 bg-white flex flex-col items-center justify-between border-r">
+        <div className="w-[60px] h-screen py-8 bg-white flex flex-col items-center justify-between max-sm:hidden">
            < Logo />
            < Menu />
            < Profile />
