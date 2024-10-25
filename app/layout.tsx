@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 // import localFont from "next/font/local";
 import "./globals.css";
 import { Inter, Poppins} from 'next/font/google';
+import ContextappProvider from "./contextApp";
 
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
@@ -34,7 +35,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={poppins.variable}>{children}</body>
+      <ContextappProvider>
+        <body className={poppins.variable}>{children}</body>
+      </ContextappProvider>
     </html>
     
   );
