@@ -27,6 +27,8 @@ export default function ContextappProvider({
     children: React.ReactNode;
 }) {
     const [openSideBar, setOpenSideBar] =useState(false);
+    
+    
     return (
         <ContextApp.Provider
             value={{openSideBarObject: {openSideBar, setOpenSideBar} }}
