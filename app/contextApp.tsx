@@ -1,6 +1,6 @@
 "use client";
 
-import {createContext, useContext, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 
 //structure of the context
 
@@ -27,6 +27,32 @@ export default function ContextappProvider({
     children: React.ReactNode;
 }) {
     const [openSideBar, setOpenSideBar] =useState(false);
+    const [isMobileView, setIsMobileView] =useState(false);
+
+
+    useEffect(() =>{
+        function handleResize(){
+            setIsMobileView(window.innerWidth <= 940);
+        }
+
+        handleResize();
+
+        window.addEventListener("resize", handleResize);
+
+
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+
+    }, []);
+
+    useEffect(()=>{
+        if (!isMobileView){
+            setOpenSideBar(false);
+        }
+
+    }, [isMobileView]);
     
     
     return (

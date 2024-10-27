@@ -48,7 +48,7 @@ function AddProjectButton(){
         <div className="flex gap-3 items-center">
             <button className='bg-orange-600 text-white px-2 pr-3 p-2 text-[14px] h-10 rounded-md flex gap-1 items-center'>
                 <AddIcon sx={{fontSize:'22px'}} className='mt-[2px]' />
-                <span className="max-sm:hidden pr-2">New Tasks</span>
+                <span className="max-md:hidden pr-2">New Tasks</span>
         
             </button>
             <MenuIcon 

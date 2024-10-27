@@ -1,8 +1,11 @@
+'use client'
 import Image from "next/image";
 import SideBar from "./components/Sidebar";
 import AllProjects from "./Pages/AllProjects/Components/AllProjects";
 import AllTasks from "./Pages/AllTasks/Components/AllTasks";
 import { useContextApp } from "./contextApp";
+
+// import { useContextApp } from "./contextApp";
 
 export default function Home() {
   const { openSideBarObject: { openSideBar },} = useContextApp(); // Corrected destructuring and function usage
@@ -14,7 +17,7 @@ export default function Home() {
       )}
 
       <SideBar />
-      {/* <AllProjects /> */}
+      {/* <AllProjects />  */}
       <AllTasks />
     </div>
   );

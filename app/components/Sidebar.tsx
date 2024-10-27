@@ -1,14 +1,43 @@
-import React from "react";
+'use client'
+import React, { useEffect, useRef } from "react";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";  
 import BorderAllIcon from "@mui/icons-material/BorderAll";
 import SplitscreenIcon from "@mui/icons-material/Splitscreen";
 import LogoutIcon from "@mui/icons-material/Logout"; 
 import { useContextApp } from "../contextApp";
 
+
+
 function SideBar() {
     const {
-        openSideBarObject: { openSideBar },
+        openSideBarObject: { openSideBar,setOpenSideBar },
     } = useContextApp();
+
+    const SideBarMenuRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (
+                SideBarMenuRef.current && 
+                !SideBarMenuRef.current.contains(event.target as Node)
+            ) {
+                setOpenSideBar(false);
+            }
+        }
+    
+        if (openSideBar) {
+            document.addEventListener("mousedown", handleClickOutside);
+        } else {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+    
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [openSideBar, setOpenSideBar]);
+    
+
+
 
     return (
         <div 
