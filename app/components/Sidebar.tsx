@@ -41,6 +41,7 @@ function SideBar() {
 
     return (
         <div 
+            ref={SideBarMenuRef}
             className={`${
                 openSideBar ? "w-[280px] fixed shadow-xl" : "w-[97px] max-[940px]:hidden"
             } h-screen py-10 bg-white flex flex-col items-center

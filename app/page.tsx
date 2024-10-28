@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <div className="flex w-full h-screen poppins">
       {openSideBar && (
-        <div className="w-full h-full z-50 bg-slate-800 opacity-30"></div> // Fixed typo in "opacity"
+        <div className="w-full h-full z-50 bg-slate-800 fixed opacity-30"></div> // Fixed typo in "opacity"
       )}
 
       <SideBar />

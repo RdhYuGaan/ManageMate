@@ -14,6 +14,7 @@ type AppType={
 //default state
 const defaultState: AppType={
     openSideBarObject: {openSideBar:false, setOpenSideBar: ()=>{}},
+    sideBarMenuObject: {sideBarMenu: [], setSideBarMenu: ()=>{}},
 };
 
 //create context
@@ -28,6 +29,27 @@ export default function ContextappProvider({
 }) {
     const [openSideBar, setOpenSideBar] =useState(false);
     const [isMobileView, setIsMobileView] =useState(false);
+    const [SideBarMenu, setSideBarMenu] =useState<sidearMenuItem[]>([
+        {
+            id:1,
+            name:"All Projects",
+            isSelected:true,
+        },
+        {
+            id:2,
+            name:"All Tasks",
+            isSelected:false,
+            
+        },{
+            id:3,
+            name:"Logout",
+            isSelected:false,
+            
+        },
+        
+        
+
+    ]);
 
 
     useEffect(() =>{
@@ -53,6 +75,10 @@ export default function ContextappProvider({
         }
 
     }, [isMobileView]);
+
+    useEffect(()=>{
+        setOpenSideBar(false);
+    }, [SideBarMenu]);
     
     
     return (
