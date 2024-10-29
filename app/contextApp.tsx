@@ -1,6 +1,8 @@
 "use client";
 
 import {createContext, useContext, useEffect, useState} from "react";
+import {AppType, SidebarMenuItem} from "./types/Apptype";
+
 
 //structure of the context
 
@@ -29,7 +31,7 @@ export default function ContextappProvider({
 }) {
     const [openSideBar, setOpenSideBar] =useState(false);
     const [isMobileView, setIsMobileView] =useState(false);
-    const [SideBarMenu, setSideBarMenu] =useState<sidearMenuItem[]>([
+    const [SideBarMenu, setSideBarMenu] =useState<sidebarMenuItem[]>([
         {
             id:1,
             name:"All Projects",

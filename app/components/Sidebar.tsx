@@ -54,8 +54,47 @@ function SideBar() {
     );
 
     function Menu() {
+        const iconMap:Record<string, React.ComponentType<SvgIconProps>>= {
+            "1": BorderAllIcon,
+            "2": SplitscreenIcon,
+            "3": LogoutIcon,
+        };
+
+        function handleClickedItem(id: number){
+            const updateMenuSideBar =sideBarMenu.map((item)=> {
+                if (item.id===id){
+                    return {...item,isSelected:true};
+                }
+
+                return {...item,isSelected:false};
+            });
+
+            setSideBarMenu(updateMenuSideBar);
+
+        }
         return (
             <div className="flex flex-col gap-6">
+
+                {SideBarMenuRef.map((menuItem) =>{
+                    const IconComponent = iconMap[menuItem.id.toString()];
+                    return (
+                        <div 
+                            onClick={()=>{
+                                if(menuItem.id===1||menuItem.id===2){
+                                    handleClickedItem(menuItem.id);
+                                }
+                             }}
+                         key={menuItem.id}
+                         className="flex items-center gap-2 cursor-pointer"
+                        >
+                            <IconComponent
+                                sx={{fontSize:"25px"}}
+                                className={' ${
+                                    menuItem={.isSelected ? "text-orange-600: "text-slate-300"
+                                }  '}
+                            />      
+                    )
+                })}
                 {/* All Projects Icon */}
                 <div className="flex items-center gap-2">
                     <BorderAllIcon 
@@ -99,6 +138,9 @@ function SideBar() {
             </div>
         );
     }
+
+    
+
 
     function Logo() {
         return (
