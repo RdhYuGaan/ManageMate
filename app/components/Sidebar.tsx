@@ -10,8 +10,7 @@ import { SvgIconProps } from "@mui/material";
 function SideBar() {
     const {
         openSideBarObject: { openSideBar, setOpenSideBar },
-        sideBarMenu,
-        setSideBarMenu
+        sideBarMenuObject: { sideBarMenu, setSideBarMenu }
     } = useContextApp();
 
     const SideBarMenuRef = useRef<HTMLDivElement>(null);
