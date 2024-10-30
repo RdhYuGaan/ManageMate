@@ -1,16 +1,17 @@
-'use client'
+'use client';
 import React, { useEffect, useRef } from "react";
-import TaskAltIcon from "@mui/icons-material/TaskAlt";  
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import BorderAllIcon from "@mui/icons-material/BorderAll";
 import SplitscreenIcon from "@mui/icons-material/Splitscreen";
-import LogoutIcon from "@mui/icons-material/Logout"; 
+import LogoutIcon from "@mui/icons-material/Logout";
 import { useContextApp } from "../contextApp";
-
-
+import { SvgIconProps } from "@mui/material";
 
 function SideBar() {
     const {
-        openSideBarObject: { openSideBar,setOpenSideBar },
+        openSideBarObject: { openSideBar, setOpenSideBar },
+        sideBarMenu,
+        setSideBarMenu
     } = useContextApp();
 
     const SideBarMenuRef = useRef<HTMLDivElement>(null);
@@ -24,103 +25,79 @@ function SideBar() {
                 setOpenSideBar(false);
             }
         }
-    
+
         if (openSideBar) {
             document.addEventListener("mousedown", handleClickOutside);
         } else {
             document.removeEventListener("mousedown", handleClickOutside);
         }
-    
+
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [openSideBar, setOpenSideBar]);
-    
-
-
 
     return (
         <div 
             ref={SideBarMenuRef}
             className={`${
                 openSideBar ? "w-[280px] fixed shadow-xl" : "w-[97px] max-[940px]:hidden"
-            } h-screen py-10 bg-white flex flex-col items-center
-            justify-between z-[90] transition-all`}
+            } h-screen py-10 bg-white flex flex-col items-center justify-between z-[90] transition-all`}
         >
-           <Logo />
-           <Menu />
-           <Profile />
+            <Logo />
+            <Menu />
+            <Profile />
         </div>
     );
 
     function Menu() {
-        const iconMap:Record<string, React.ComponentType<SvgIconProps>>= {
+        const iconMap: Record<string, React.ComponentType<SvgIconProps>> = {
             "1": BorderAllIcon,
             "2": SplitscreenIcon,
             "3": LogoutIcon,
         };
 
-        function handleClickedItem(id: number){
-            const updateMenuSideBar =sideBarMenu.map((item)=> {
-                if (item.id===id){
-                    return {...item,isSelected:true};
+        function handleClickedItem(id: number) {
+            const updateMenuSideBar = sideBarMenu.map((item) => {
+                if (item.id === id) {
+                    return { ...item, isSelected: true };
                 }
-
-                return {...item,isSelected:false};
+                return { ...item, isSelected: false };
             });
 
             setSideBarMenu(updateMenuSideBar);
-
         }
+
         return (
             <div className="flex flex-col gap-6">
-
-                {SideBarMenuRef.map((menuItem) =>{
+                {sideBarMenu.map((menuItem) => {
                     const IconComponent = iconMap[menuItem.id.toString()];
                     return (
-                        <div 
-                            onClick={()=>{
-                                if(menuItem.id===1||menuItem.id===2){
+                        <div
+                            onClick={() => {
+                                if (menuItem.id === 1 || menuItem.id === 2) {
                                     handleClickedItem(menuItem.id);
                                 }
-                             }}
-                         key={menuItem.id}
-                         className="flex items-center gap-2 cursor-pointer"
+                            }}
+                            key={menuItem.id}
+                            className="flex items-center gap-2 cursor-pointer"
                         >
                             <IconComponent
-                                sx={{fontSize:"25px"}}
-                                className={' ${
-                                    menuItem={.isSelected ? "text-orange-600: "text-slate-300"
-                                }  '}
-                            />      
-                    )
+                                sx={{ fontSize: "25px" }}
+                                className={`${
+                                    menuItem.isSelected ? "text-orange-600" : "text-slate-300"
+                                }`}
+                            />
+                            {openSideBar && (
+                                <span className={`${
+                                    menuItem.isSelected ? "text-orange-600" : "text-slate-300"
+                                }`}>
+                                    {menuItem.name}
+                                </span>
+                            )}
+                        </div>
+                    );
                 })}
-                {/* All Projects Icon */}
-                <div className="flex items-center gap-2">
-                    <BorderAllIcon 
-                        sx={{ fontSize: "25px" }}
-                        className="cursor-pointer text-slate-300" 
-                    />
-                    {openSideBar && <span className="text-slate-400">All Projects</span>}
-                </div>
-
-                {/* All Tasks Icon */}
-                <div className="flex items-center gap-2">
-                    <SplitscreenIcon 
-                         sx={{ fontSize: "25px" }}
-                         className="cursor-pointer text-orange-600"                    
-                    />
-                    {openSideBar && <span className="text-orange-600">All Tasks</span>}
-                </div>
-
-                {/* Logout Icon */}
-                <div className="flex items-center gap-2">
-                    <LogoutIcon 
-                        sx={{ fontSize: "25px" }}
-                        className="cursor-pointer text-slate-300"                    
-                    />
-                    {openSideBar && <span className="text-orange-600">Logout</span>}
-                </div>
             </div>
         );
     }
@@ -139,9 +116,6 @@ function SideBar() {
         );
     }
 
-    
-
-
     function Logo() {
         return (
             <div className="flex items-center justify-center rounded-md">
@@ -153,7 +127,7 @@ function SideBar() {
                     <div className="text-xl flex items-center gap-1">
                         <span className="font-bold">Project</span>
                         <span className="text-slate-600">Master</span>
-                    </div>    
+                    </div>
                 )}
             </div>
         );

@@ -1,20 +1,16 @@
-export type SidebarMenuItem ={
-    id:number;
-    name:string;
-    isSelected:boolean;
+import { Dispatch, SetStateAction } from "react";
+
+export type SidebarMenuItem = {
+    id: number;
+    name: string;
+    isSelected: boolean;
 };
 
-
-export type AppType ={
+export type AppType = {
     openSideBarObject: {
-        openSidebar: boolean;
-        setOpenSideBar: React.Dispatch<React.SetStateAction<boolean>>;
+        openSideBar: boolean;
+        setOpenSideBar: Dispatch<SetStateAction<boolean>>;
     };
+    sideBarMenu: SidebarMenuItem[]; // <-- Add sideBarMenu here
+    setSideBarMenu: Dispatch<SetStateAction<SidebarMenuItem[]>>; // <-- Add setSideBarMenu here
 };
-
-sideBarMenuObject: {
-    sideBarMenuObject: {
-        sideBarMenu: SidebarMenuItem[];
-        setSideBarMenu: React.Dispatch<React.SetStateAction<SidebarMenuItem[]>>;
-    }
-}
