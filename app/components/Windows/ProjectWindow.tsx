@@ -29,7 +29,7 @@ export function ProjectWindow() {
                 <ProjectInput />
 
                 {/* footer */}
-                {/* <Footer /> */}
+                <Footer />
             </form>    
         </div>
     );
@@ -84,6 +84,40 @@ function ProjectInput(){
             </div>
         </div>
     )
+}
+
+
+
+function Footer(){
+    const {
+        openProjectWindowObject:{setOpenProjectWindow},
+    } = useContextApp();
+
+    return (
+        <div className="w-[102%] p-[12px] mt-8 mb-4 flex gap-3 justify-end items-center">
+
+            {/* cancel button */}
+            <button 
+                onClick={()=> setOpenProjectWindow(false)}
+                className="border border-slate-200 text-slate-400 text-[13px] p-2 px-6 rounded-md
+                hover:border-slate-300 transition-all"
+            >
+                Cancel
+            </button>
+
+            <button
+                type="submit"
+                className="bg-orange-700 text-white text-[13px] p-2 px-4 rounded-md transition-all"
+            >
+                Add Project
+            </button>    
+
+        </div>
+    );
+
+
+    
+
 }
 
 
