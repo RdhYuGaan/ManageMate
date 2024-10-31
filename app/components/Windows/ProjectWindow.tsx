@@ -2,6 +2,8 @@
 import React from "react";
 import { useContextApp } from "@/app/contextApp"; 
 import BorderAllIcon from "@mui/icons-material/BorderAll";
+import CloseOutlinedIcon  from "@mui/icons-material/CloseOutlined";
+import LibraryBooks  from "@mui/icons-material/LibraryBooks";
 
 export function ProjectWindow() {
     const {
@@ -24,7 +26,7 @@ export function ProjectWindow() {
                 className="flex flex-col gap-2 pt-8 px-7 mt-3"
             >
                 {/* project input */}
-                {/* <ProjectInput /> */}
+                <ProjectInput />
 
                 {/* footer */}
                 {/* <Footer /> */}
@@ -46,9 +48,42 @@ function Header({ setOpenProjectWindow }: { setOpenProjectWindow: React.Dispatch
                         onClick={() => setOpenProjectWindow(false)}
                     />
                 </div>
+
+                {/* project header */}
+                <span className="font-semibold text-lg">Add Project</span>
             </div>
+            <CloseOutlinedIcon
+                sx={{ fontSize: "18px" }}
+                className="text-slate-300 cursor-pointer"
+                onClick={() => setOpenProjectWindow(false)}
+            />
+
         </div>
     );
+}
+
+function ProjectInput(){
+    return (
+        <div className="flex flex-col gap-2">
+            <span className="text-[14px] font-medium text-slate-600">
+                Project Name
+            </span>
+            <div className="flex gap-3 justify-between">
+
+                {/* input */}
+                <div className="w-full">
+                    <input
+                        placeholder="enter Project Name....."
+                        className="w-full rounded-md border outline-none p-[10px] text-[13px]"
+                    />    
+                </div>
+
+                    {/* icon */}
+                <div className="w-12 h-10 text-white flex items-center justify-center bg-orange-600 rounded-lg cursor-pointer " />    
+                    <LibraryBooks />
+            </div>
+        </div>
+    )
 }
 
 
