@@ -2,6 +2,7 @@ import React from 'react';
 import SearchIcon from "@mui/icons-material/Add";
 import AddIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useContextApp } from '@/app/contextApp';
 function ProjectsHeader(){
     return (
         <div className='flex justify-between'>
@@ -37,16 +38,22 @@ function SearchBar(){
 }
 
 function AddProjectsButton(){
+    const {
+        openProjectWindowObject: { openProjectWindow, setOpenProjectWindow },
+    } = useContextApp();
+    const {
+        openSideBarObject: {  openSideBar,  setOpenSideBar },
+    } = useContextApp();
     return(
         <div className='flex gap-3 items-center'>
             <button className='bg-orange-600 text-white px-2 pr-3 text-[14px] rounded-md 
-            flex gap-1 items-center p-2 max-sm:pr-2'>
+            flex gap-1 items-center p-2 max-sm:pr-2' onClick={()=>setOpenProjectWindow(true)}>
                 <AddIcon sx={{fontSize:'22px'}}
                 className='mt-[2px]' />
                 <span className='max-sm:hidden'>New Project </span>
         
             </button>
-            <MenuIcon className="text-slate-400 h-9 cursor-pointer hidden max-[940px]:block" />
+            <MenuIcon className="text-slate-400 h-9 cursor-pointer hidden max-[940px]:block" onClick={()=>setOpenSideBar(true)} />
         </div>
         
     );

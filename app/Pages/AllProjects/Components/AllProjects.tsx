@@ -2,6 +2,7 @@ import ProjectsHeader from "./ProjectHeader";
 import  ProjectsSubHeader from "./ProjectsubHeader";
 import AllProjectsSection from "./AllProjectsSection";
 import StatsRightBar from "./StatsRightBar";
+import ProjectWindow from "@/app/components/Windows/ProjectWindow";
 
 function AllProjects(){
     return (
@@ -19,6 +20,7 @@ function AllProjectsArea(){
             <ProjectsHeader />
 
             <ProjectsSubHeader />
+            <ProjectWindow/>
 
             <AllProjectsSection />
         </div>

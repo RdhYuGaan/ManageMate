@@ -9,6 +9,7 @@ export function ProjectWindow() {
     const {
         openProjectWindowObject: { openProjectWindow, setOpenProjectWindow },
     } = useContextApp();
+    console.log(openProjectWindow);
 
     return (
         <div
@@ -90,8 +91,9 @@ function ProjectInput(){
 
 function Footer(){
     const {
-        openProjectWindowObject:{setOpenProjectWindow},
+        openProjectWindowObject:{ openProjectWindow, setOpenProjectWindow},
     } = useContextApp();
+    
 
     return (
         <div className="w-[102%] p-[12px] mt-8 mb-4 flex gap-3 justify-end items-center">
