@@ -1,36 +1,59 @@
 "use client";
-import React ,{useEffect, useLayoutEffect, useRef, useState} from "react";
-import { useContextApp } from "@/app/contextApp"; 
+import React, { useEffect, useLayoutEffect } from "react";
+import { useContextApp } from "@/app/contextApp";
 import BorderAllIcon from "@mui/icons-material/BorderAll";
-import CloseOutlinedIcon  from "@mui/icons-material/CloseOutlined";
-import LibraryBooks  from "@mui/icons-material/LibraryBooks";
-
-
-
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import LibraryBooks from "@mui/icons-material/LibraryBooks";
 import {
     useForm,
     SubmitHandler,
     UseFormRegister,
     FieldErrors,
-}from "react-hook-form";
+} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
-    const schema = z.object({
-        projectName: z
+const schema = z.object({
+    projectName: z
         .string()
-        .min(1, {message: "project name is required"})
-        .max(20, {message: "project name must be 20 characters"}),
-    });
-    type FormData =z.infer<typeof schema>;
+        .min(1, { message: "project name is required" })
+        .max(20, { message: "project name must be 20 characters" }),
+});
+type FormData = z.infer<typeof schema>;
 
 export function ProjectWindow() {
     const {
         openProjectWindowObject: { openProjectWindow, setOpenProjectWindow },
     } = useContextApp();
-
-    
     console.log(openProjectWindow);
+
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        formState: { errors },
+        reset,
+    } = useForm<FormData>({
+        resolver: zodResolver(schema),
+    });
+
+    const handleClose = () => {
+        console.log("closing window and resetting form");
+        setOpenProjectWindow(false);
+        reset();
+    };
+
+    const onSubmit: SubmitHandler<FormData> = (data) => {
+        console.log("form submitted with data:", data);
+        handleClose();
+    };
+
+    useLayoutEffect(() => {
+        if (openProjectWindow) {
+            console.log("window opened, resetting form");
+            reset();
+        }
+    }, [openProjectWindow, reset]);
 
     return (
         <div
@@ -40,25 +63,27 @@ export function ProjectWindow() {
             -translate-x-1/2 absolute flex flex-col gap-3 border border-slate-50 bg-white rounded-lg shadow-md`}
         >
             {/* header */}
-            <Header setOpenProjectWindow={setOpenProjectWindow} />
-           
+            <Header setOpenProjectWindow={setOpenProjectWindow} handleClose={handleClose} />
+
             {/* body */}
-            <form 
-                onSubmit={(e) => e.preventDefault()}
-                className="flex flex-col gap-2 pt-8 px-7 mt-3"
-            >
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 pt-8 px-7 mt-3">
                 {/* project input */}
-                <ProjectInput />
+                <ProjectInput register={register} errors={errors} />
 
                 {/* footer */}
                 <Footer />
-            </form>    
+            </form>
         </div>
     );
 }
 
-// Inside ProjectWindow component
-function Header({ setOpenProjectWindow }: { setOpenProjectWindow: React.Dispatch<React.SetStateAction<boolean>> }) {
+function Header({
+    setOpenProjectWindow,
+    handleClose,
+}: {
+    setOpenProjectWindow: React.Dispatch<React.SetStateAction<boolean>>;
+    handleClose: () => void;
+}) {
     return (
         <div className="flex justify-between items-center pt-7 px-7">
             <div className="flex items-center gap-2">
@@ -77,51 +102,69 @@ function Header({ setOpenProjectWindow }: { setOpenProjectWindow: React.Dispatch
             <CloseOutlinedIcon
                 sx={{ fontSize: "18px" }}
                 className="text-slate-300 cursor-pointer"
-                onClick={() => setOpenProjectWindow(false)}
+                onClick={handleClose}
             />
-
         </div>
     );
 }
 
-function ProjectInput(){
+function ProjectInput({
+    register,
+    errors,
+}: {
+    register: UseFormRegister<FormData>;
+    errors: FieldErrors<FormData>;
+}) {
+    const {
+        openProjectWindowObject: { openProjectWindow },
+    } = useContextApp();
+
+    useEffect(() => {
+        if (openProjectWindow) {
+            const inputElement = document.querySelector<HTMLInputElement>(
+                'input[name="projectName"]'
+            );
+            if (inputElement) {
+                inputElement.focus();
+            }
+        }
+    }, [openProjectWindow]);
+
     return (
         <div className="flex flex-col gap-2">
-            <span className="text-[14px] font-medium text-slate-600">
-                Project Name
-            </span>
+            <span className="text-[14px] font-medium text-slate-600">Project Name</span>
             <div className="flex gap-3 justify-between">
-
                 {/* input */}
                 <div className="w-full">
                     <input
+                        {...register("projectName")}
                         placeholder="enter Project Name...."
                         className="w-full rounded-md border text-slate-400 outline-none p-[10px] text-[13px]"
-                    />    
+                    />
+                    {errors.projectName && (
+                        <p className="text-red-500 text-xs mt-1">{errors.projectName.message}</p>
+                    )}
                 </div>
 
-                    {/* icon */}
-                <div className="w-12 h-10 text-white flex items-center justify-center bg-orange-600 rounded-lg cursor-pointer " />    
-                    <LibraryBooks  />
+                {/* icon */}
+                <div className="w-12 h-10 text-white flex items-center justify-center bg-orange-600 rounded-lg cursor-pointer">
+                    <LibraryBooks />
+                </div>
             </div>
         </div>
-    )
+    );
 }
 
-
-
-function Footer(){
+function Footer() {
     const {
-        openProjectWindowObject:{ openProjectWindow, setOpenProjectWindow},
+        openProjectWindowObject: { openProjectWindow, setOpenProjectWindow },
     } = useContextApp();
-    
 
     return (
         <div className="w-[102%] p-[12px] mt-8 mb-4 flex gap-3 justify-end items-center">
-
             {/* cancel button */}
-            <button 
-                onClick={()=> setOpenProjectWindow(false)}
+            <button
+                onClick={() => setOpenProjectWindow(false)}
                 className="border border-slate-200 text-slate-400 text-[13px] p-2 px-6 rounded-md
                 hover:border-slate-300 transition-all"
             >
@@ -133,15 +176,9 @@ function Footer(){
                 className="bg-orange-700 text-white text-[13px] p-2 px-4 rounded-md transition-all"
             >
                 Add Project
-            </button>    
-
+            </button>
         </div>
     );
-
-
-    
-
 }
-
 
 export default ProjectWindow;
