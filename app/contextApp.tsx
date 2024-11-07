@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { AppType, SidebarMenuItem } from "./types/Apptype";
+import { AppType, IconData, SidebarMenuItem } from "./types/Apptype";
 
 // Default state
 const defaultState: AppType = {
@@ -43,6 +43,8 @@ export default function ContextappProvider({
     ]);
 
     const [openProjectWindow, setOpenProjectWindow] = useState(false);
+    const [allIconsData, setAllIconData] = useState<IconData[]>(allIconsData);
+
 
     useEffect(() => {
         function handleResize() {

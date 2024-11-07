@@ -6,6 +6,13 @@ export type SidebarMenuItem ={
     isSelected:boolean;
 };
 
+export interface IconData {
+    id: number;
+    name: string;
+    icon:React.ReactNode;
+    isSelected:boolean;
+}
+
 
 export type AppType = {
     openSideBarObject: {
