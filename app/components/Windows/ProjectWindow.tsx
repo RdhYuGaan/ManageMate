@@ -1,14 +1,35 @@
 "use client";
-import React from "react";
+import React ,{useEffect, useLayoutEffect, useRef, useState} from "react";
 import { useContextApp } from "@/app/contextApp"; 
 import BorderAllIcon from "@mui/icons-material/BorderAll";
 import CloseOutlinedIcon  from "@mui/icons-material/CloseOutlined";
 import LibraryBooks  from "@mui/icons-material/LibraryBooks";
 
+
+
+import {
+    useForm,
+    SubmitHandler,
+    UseFormRegister,
+    FieldErrors,
+}from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+
+    const schema = z.object({
+        projectName: z
+        .string()
+        .min(1, {message: "project name is required"})
+        .max(20, {message: "project name must be 20 characters"}),
+    });
+    type FormData =z.infer<typeof schema>;
+
 export function ProjectWindow() {
     const {
         openProjectWindowObject: { openProjectWindow, setOpenProjectWindow },
     } = useContextApp();
+
+    
     console.log(openProjectWindow);
 
     return (
@@ -51,7 +72,7 @@ function Header({ setOpenProjectWindow }: { setOpenProjectWindow: React.Dispatch
                 </div>
 
                 {/* project header */}
-                <span className="font-semibold text-lg">Add Project</span>
+                <span className="font-semibold text-lg text-slate-600">Add Project</span>
             </div>
             <CloseOutlinedIcon
                 sx={{ fontSize: "18px" }}
@@ -74,14 +95,14 @@ function ProjectInput(){
                 {/* input */}
                 <div className="w-full">
                     <input
-                        placeholder="enter Project Name....."
-                        className="w-full rounded-md border outline-none p-[10px] text-[13px]"
+                        placeholder="enter Project Name...."
+                        className="w-full rounded-md border text-slate-400 outline-none p-[10px] text-[13px]"
                     />    
                 </div>
 
                     {/* icon */}
                 <div className="w-12 h-10 text-white flex items-center justify-center bg-orange-600 rounded-lg cursor-pointer " />    
-                    <LibraryBooks />
+                    <LibraryBooks  />
             </div>
         </div>
     )
