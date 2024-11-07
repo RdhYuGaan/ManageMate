@@ -37,15 +37,15 @@ export function ProjectWindow() {
         resolver: zodResolver(schema),
     });
 
+    const onSubmit: SubmitHandler<FormData> = (data) => {
+        console.log("form submitted with data", data);
+        handleClose();
+    };
+
     const handleClose = () => {
         console.log("closing window and resetting form");
         setOpenProjectWindow(false);
         reset();
-    };
-
-    const onSubmit: SubmitHandler<FormData> = (data) => {
-        console.log("form submitted with data:", data);
-        handleClose();
     };
 
     useLayoutEffect(() => {
@@ -62,41 +62,23 @@ export function ProjectWindow() {
             } w-[48%] max-sm:w-[82%] max-[600px]:w-[93%] z-[80] p-3 left-1/2 top-[47%] -translate-y-1/2
             -translate-x-1/2 absolute flex flex-col gap-3 border border-slate-50 bg-white rounded-lg shadow-md`}
         >
-            {/* header */}
-            <Header setOpenProjectWindow={setOpenProjectWindow} handleClose={handleClose} />
+            <Header handleClose={handleClose} />
 
-            {/* body */}
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 pt-8 px-7 mt-3">
-                {/* project input */}
                 <ProjectInput register={register} errors={errors} />
-
-                {/* footer */}
-                <Footer />
+                <Footer handleClose={handleClose} />
             </form>
         </div>
     );
 }
 
-function Header({
-    setOpenProjectWindow,
-    handleClose,
-}: {
-    setOpenProjectWindow: React.Dispatch<React.SetStateAction<boolean>>;
-    handleClose: () => void;
-}) {
+function Header({ handleClose }: { handleClose: () => void }) {
     return (
         <div className="flex justify-between items-center pt-7 px-7">
             <div className="flex items-center gap-2">
-                {/* Project Icon */}
                 <div className="p-[7px] bg-orange-200 rounded-lg flex items-center justify-center">
-                    <BorderAllIcon
-                        sx={{ fontSize: "21px" }}
-                        className="text-orange-600"
-                        onClick={() => setOpenProjectWindow(false)}
-                    />
+                    <BorderAllIcon sx={{ fontSize: "21px" }} className="text-orange-600" />
                 </div>
-
-                {/* project header */}
                 <span className="font-semibold text-lg text-slate-600">Add Project</span>
             </div>
             <CloseOutlinedIcon
@@ -121,9 +103,7 @@ function ProjectInput({
 
     useEffect(() => {
         if (openProjectWindow) {
-            const inputElement = document.querySelector<HTMLInputElement>(
-                'input[name="projectName"]'
-            );
+            const inputElement = document.querySelector<HTMLInputElement>('input[name="projectName"]');
             if (inputElement) {
                 inputElement.focus();
             }
@@ -134,19 +114,16 @@ function ProjectInput({
         <div className="flex flex-col gap-2">
             <span className="text-[14px] font-medium text-slate-600">Project Name</span>
             <div className="flex gap-3 justify-between">
-                {/* input */}
                 <div className="w-full">
                     <input
                         {...register("projectName")}
-                        placeholder="enter Project Name...."
+                        placeholder="enter Project Name..."
                         className="w-full rounded-md border text-slate-400 outline-none p-[10px] text-[13px]"
                     />
                     {errors.projectName && (
-                        <p className="text-red-500 text-xs mt-1">{errors.projectName.message}</p>
+                        <p className="text-red-500 text-[11px] mt-2">{errors.projectName.message}</p>
                     )}
                 </div>
-
-                {/* icon */}
                 <div className="w-12 h-10 text-white flex items-center justify-center bg-orange-600 rounded-lg cursor-pointer">
                     <LibraryBooks />
                 </div>
@@ -155,16 +132,11 @@ function ProjectInput({
     );
 }
 
-function Footer() {
-    const {
-        openProjectWindowObject: { openProjectWindow, setOpenProjectWindow },
-    } = useContextApp();
-
+function Footer({ handleClose }: { handleClose: () => void }) {
     return (
         <div className="w-[102%] p-[12px] mt-8 mb-4 flex gap-3 justify-end items-center">
-            {/* cancel button */}
             <button
-                onClick={() => setOpenProjectWindow(false)}
+                onClick={handleClose}
                 className="border border-slate-200 text-slate-400 text-[13px] p-2 px-6 rounded-md
                 hover:border-slate-300 transition-all"
             >
