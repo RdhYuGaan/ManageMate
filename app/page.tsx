@@ -1,10 +1,12 @@
 'use client'
-import Image from "next/image";
 import SideBar from "./components/Sidebar";
 import AllProjects from "./Pages/AllProjects/Components/AllProjects";
 import AllTasks from "./Pages/AllTasks/Components/AllTasks";
 import { useContextApp } from "./contextApp";
-import ProjectWindow from "./components/Windows/ProjectWindow";
+import {ProjectWindow} from "./components/Windows/ProjectWindow";
+import {useCallback, useState } from "react";
+import IconsWindow from "./components/Windows/IconWindow";
+
 
 export default function Home() {
 
@@ -24,6 +26,7 @@ export default function Home() {
 
   return (
     <div className="flex w-full h-screen poppins">
+      <IconsWindow />
       <ProjectWindow />
 
       {(openSideBar || openProjectWindow) && (

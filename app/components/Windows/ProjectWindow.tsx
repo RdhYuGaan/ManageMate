@@ -73,18 +73,28 @@ export function ProjectWindow() {
 }
 
 function Header({ handleClose }: { handleClose: () => void }) {
+    const {
+        selectedIconObject: {setSelectedIcon},
+    }=useContextApp();
     return (
         <div className="flex justify-between items-center pt-7 px-7">
             <div className="flex items-center gap-2">
                 <div className="p-[7px] bg-orange-200 rounded-lg flex items-center justify-center">
-                    <BorderAllIcon sx={{ fontSize: "21px" }} className="text-orange-600" />
+                    <BorderAllIcon 
+                        sx={{ fontSize: "21px" }} 
+                        className="text-orange-600" 
+                    />
                 </div>
                 <span className="font-semibold text-lg text-slate-600">Add Project</span>
             </div>
             <CloseOutlinedIcon
                 sx={{ fontSize: "18px" }}
                 className="text-slate-300 cursor-pointer"
-                onClick={handleClose}
+                onClick={()=> {
+                    console.log("close Icon Clicked");
+                    setSelectedIcon(null);
+                    handleClose();
+                }}
             />
         </div>
     );
@@ -99,6 +109,8 @@ function ProjectInput({
 }) {
     const {
         openProjectWindowObject: { openProjectWindow },
+        openIconWindowObject: {setOpenIconWindow},
+        selectedIconObject: {selectedIcon},
     } = useContextApp();
 
     useEffect(() => {
@@ -155,7 +167,11 @@ function Footer({ handleClose }: { handleClose: () => void }) {
     return (
         <div className="w-[102%] p-[12px] mt-8 mb-4 flex gap-3 justify-end items-center">
             <button
-                onClick={handleClose}
+                type="button"
+                onClick={()=>{
+                    handleClose();
+                    setSelectedIcon(null);
+                }}
                 className="border border-slate-200 text-slate-400 text-[13px] p-2 px-6 rounded-md
                 hover:border-slate-300 transition-all"
             >
@@ -164,7 +180,7 @@ function Footer({ handleClose }: { handleClose: () => void }) {
 
             <button
                 type="submit"
-                className="bg-orange-700 text-white text-[13px] p-2 px-4 rounded-md transition-all"
+                className="bg-orange-700 hover:bg-orange-700 text-white text-[13px] p-2 px-4 rounded-md transition-all"
             >
                 Add Project
             </button>

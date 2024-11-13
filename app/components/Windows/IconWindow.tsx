@@ -26,6 +26,8 @@ export default IconsWindow;
 
 
 function Header () {
+    
+
     return (
         <div className="flex justify-between items-center pt-7 px-7 mb-8">
             <div className="flex items-center gap-2">
@@ -35,7 +37,7 @@ function Header () {
                     <AppsIcon
                         sx={{ fontSize : 21 }}
                         className="text-orange-400 text-[17px]"
-
+                        onClick={()=>setOpenIconWindow(false)}
                     />    
                 </div>
 
@@ -43,7 +45,10 @@ function Header () {
                 <span className="font-semibold text-lg">All Icons</span>
             </div>
 
-            <CloseIcon className="text-slate-400 text-[18px] cursor-pointer" />
+            <CloseIcon 
+                className="text-slate-400 text-[18px] cursor-pointer" 
+                onClick={()=>setOpenIconwindow(false)}                
+            />
         </div>
     )
 }
