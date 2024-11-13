@@ -43,7 +43,7 @@ export default function ContextappProvider({
     ]);
 
     const [openProjectWindow, setOpenProjectWindow] = useState(false);
-    const [allIconsData, setAllIconData] = useState<IconData[]>(allIconsData);
+    const [allIconsData, setAllIconsData] = useState<IconData[]>(allIconsArray);
 
 
     useEffect(() => {
