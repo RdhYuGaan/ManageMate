@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { AppType, IconData, SidebarMenuItem } from "./types/Apptype";
+import { allIconsArray } from "./Data/AllIcons";
 
 // Default state
 const defaultState: AppType = {
@@ -11,6 +12,9 @@ const defaultState: AppType = {
         openProjectWindow:false,
         setOpenProjectWindow: ()=>{},
     },
+    allIconsDataObject: {allIconsData:[], setAllIconsData: ()=> {} },
+    openIconWindowObject: {openIconWindow:false, setOpenIconWindow: () => {}},
+    selectedIconObject: {selectedIcon:null, setSelectedIcon: () => {}},
 };
 
 // Create context
@@ -79,6 +83,10 @@ export default function ContextappProvider({
                     openProjectWindow,
                     setOpenProjectWindow,
                 } ,
+
+                allIconsDataObject: {allIconsData, setAllIconsData},
+                openIconWindowObject: {openIconWindow, setOpenIconWindow},
+                selectedIconObject: {selectedIcon, setSelectedIcon},
             }}
         >
             {children}
