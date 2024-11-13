@@ -172,8 +172,18 @@ import {IconData} from "../types/Apptype";
 import {useContextApp } from '../contextApp';
 
 export const allIconsArray: IconData[] = [
-  { id: 1, icon: <AccountBalance className='text-[23px]' />, name: "AccountBalance", isSelected: true },
-  { id: 2, icon: <AccountBalanceWallet className='text-[23px]' />, name: "AccountBalanceWallet", isSelected: true },
+  { 
+    id: 1, 
+    icon: <AccountBalance className='text-[23px]' />,
+    name: "AccountBalance", 
+    isSelected: true
+  },
+  { 
+    id: 2,
+    icon: <AccountBalanceWallet className='text-[23px]' />,
+    name: "AccountBalanceWallet",
+     isSelected: true 
+  },
   { id: 3, icon: <AddShoppingCart className='text-[23px]' />, name: "AddShoppingCart", isSelected: true },
   { id: 4, icon: <Alarm className='text-[23px]' />, name: "Alarm", isSelected: true },
   { id: 5, icon: <AllInbox className='text-[23px]' />, name: "AllInbox", isSelected: true },
@@ -341,3 +351,39 @@ export const allIconsArray: IconData[] = [
   { id: 167, icon: <HowToVote className='text-[23px]' />, name: "HowToVote", isSelected: true },
   
 ];
+
+
+export default function AllIcons() {
+  const {
+    allIconsDataObject: { allIconsData, setAllIconsData },
+  } = useContextApp();
+
+  function handleTheIconSelection(singleIcon) {
+    setAllIconsData((prevIcons) =>
+      prevIcons.map((icon) => {
+        if (icon.name === singleIcon.name) {
+          return { ...icon, isSelected: true };
+        }
+        return { ...icon, isSelected: false };
+      })
+    );
+  }
+
+  return (
+    <div className="flex flex-wrap gap-2 text-orange-600 p-3">
+      {allIconsData.map((singleIcon, index) => (
+        <div
+          key={index}
+          onClick={() => handleTheIconSelection(singleIcon)}
+          className={`w-9 h-9 shadow-sm border border-slate-600 hover:text-white ${
+            singleIcon.isSelected
+              ? "bg-orange-600 text-white"
+              : "bg-white text-orange-600"
+          }`}
+        >
+          {singleIcon.icon}
+        </div>
+      ))}
+    </div>
+  );
+}
