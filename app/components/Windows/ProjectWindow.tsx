@@ -3,7 +3,7 @@ import React, { useEffect, useLayoutEffect } from "react";
 import { useContextApp } from "@/app/contextApp";
 import BorderAllIcon from "@mui/icons-material/BorderAll";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import LibraryBooks from "@mui/icons-material/LibraryBooks";
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import {
     useForm,
     SubmitHandler,
@@ -110,6 +110,10 @@ function ProjectInput({
         }
     }, [openProjectWindow]);
 
+    function setOpenIconWindow(arg0: boolean): void {
+        throw new Error("Function not implemented.");
+    }
+
     return (
         <div className="flex flex-col gap-2">
             <span className="text-[14px] font-medium text-slate-600">Project Name</span>
@@ -118,14 +122,23 @@ function ProjectInput({
                     <input
                         {...register("projectName")}
                         placeholder="enter Project Name..."
-                        className="w-full rounded-md border text-slate-400 outline-none p-[10px] text-[13px]"
+                        className="w-full rounded-md border  outline-none p-[10px] text-[13px]"
                     />
                     {errors.projectName && (
                         <p className="text-red-500 text-[11px] mt-2">{errors.projectName.message}</p>
                     )}
                 </div>
-                <div className="w-12 h-10 text-white flex items-center justify-center bg-orange-600 rounded-lg cursor-pointer">
-                    <LibraryBooks />
+                <div 
+                    onClick={() => setOpenIconWindow(true)}
+                    className="w-12 h-10 text-white flex items-center justify-center bg-orange-600 rounded-lg
+                    cursor-pointer"
+                >
+                    {selectedIcon ? (
+                        getIconComponent(selectedIcon?.name, "text-white")
+                    ) : (
+                        <LibraryBooksIcon />
+                    )}
+
                 </div>
             </div>
         </div>
@@ -133,6 +146,12 @@ function ProjectInput({
 }
 
 function Footer({ handleClose }: { handleClose: () => void }) {
+
+    const {
+        selectedIconObject: {setSelectedIcon},
+    }=useContextApp();
+    console.log("Footer rendered");
+
     return (
         <div className="w-[102%] p-[12px] mt-8 mb-4 flex gap-3 justify-end items-center">
             <button

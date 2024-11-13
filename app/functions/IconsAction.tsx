@@ -177,7 +177,7 @@ import {
   export const getIconComponent =(
     iconName: string,
     textColor? : string,
-    fontSize? :string
+    fontSize? : string
   ): JSX.Element => {
     const defaultFontSize ="27px";
     const defaultTextColor = "text-orange-600";
@@ -187,7 +187,7 @@ import {
         ClassNames: `${defaultTextColor} &{textColor || ""}`.trim(),
     };
 
-    switch (iconName) {
+    switch (iconName) { 
 
         case "ElectricalServicesOutlined":
         return <ElectricalServicesOutlined {...iconProps} />;

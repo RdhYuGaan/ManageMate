@@ -356,17 +356,22 @@ export const allIconsArray: IconData[] = [
 export default function AllIcons() {
   const {
     allIconsDataObject: { allIconsData, setAllIconsData },
+    selectedIconObject: {selectedIcon, setSelectedIcon },
+    openIconWindowObject: {setOpenIconWindow },
   } = useContextApp();
 
-  function handleTheIconSelection(singleIcon) {
+  function handleTheIconSelection(singleIcon: IconData) {
     setAllIconsData((prevIcons) =>
       prevIcons.map((icon) => {
         if (icon.name === singleIcon.name) {
+          setSelectedIcon(singleIcon);
           return { ...icon, isSelected: true };
         }
         return { ...icon, isSelected: false };
       })
     );
+
+    setOpenIconWindow(false);
   }
 
   return (
