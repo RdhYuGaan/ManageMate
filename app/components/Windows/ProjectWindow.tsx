@@ -9,9 +9,11 @@ import {
     SubmitHandler,
     UseFormRegister,
     FieldErrors,
+    UseFormReset,
 } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import AllProjects from "@/app/Pages/AllProjects/Components/AllProjects";
 
 const schema = z.object({
     projectName: z
@@ -24,22 +26,53 @@ type FormData = z.infer<typeof schema>;
 export function ProjectWindow() {
     const {
         openProjectWindowObject: { openProjectWindow, setOpenProjectWindow },
+        allProjectsObject: {allProjects,setAllProjects},
+        selectedIconObject: {selectedIcon, setSelectedIcon},
     } = useContextApp();
-    console.log(openProjectWindow);
+    
 
     const {
         register,
         handleSubmit,
         setValue,
         formState: { errors },
+        setError,
+        setFocus,
         reset,
     } = useForm<FormData>({
         resolver: zodResolver(schema),
     });
 
-    const onSubmit: SubmitHandler<FormData> = (data) => {
-        console.log("form submitted with data", data);
-        handleClose();
+    const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
+
+        const existingProject=AllProjects.find(
+            (project)=>
+                project.title.toLowerCase()=== data.projectName.toLowerCase()
+
+        );
+
+        // if it exit , return error
+        if (existingProject){
+            setError("projectName", {
+                type: "manual",
+                message: "project already exists",
+            });
+            //set the focus to the project name input
+            setFocus("projectName");
+        } else {
+            //call add new project function if anything is valid
+            addNewProject(
+                data,
+                allProjects,
+                setAllProjects,
+                setOpenProjectWindow,
+                selectedIcon,
+                reset
+            );
+        }
+
+       
+        
     };
 
     const handleClose = () => {
@@ -189,3 +222,7 @@ function Footer({ handleClose }: { handleClose: () => void }) {
 }
 
 export default ProjectWindow;
+function addNewProject(data: { projectName: string; }, allProjects: any, setAllProjects: any, setOpenProjectWindow: React.Dispatch<React.SetStateAction<boolean>>, selectedIcon: any, reset: UseFormReset<{ projectName: string; }>) {
+    throw new Error("Function not implemented.");
+}
+
