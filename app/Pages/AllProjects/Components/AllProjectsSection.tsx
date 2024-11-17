@@ -1,13 +1,21 @@
+import { useContextApp } from "@/app/contextApp";
 import SingleProjectCard from "./SingleProjectCard";
+import { useContextApp } from "@/app/contextApp";
+
+
 
 function AllProjectsSection(){
+    const {
+        allProjectsObject: {allProjects},
+
+    }= useContextApp();
     return(
-        <ul className="flex h-[78%] overflow-x-auto p-5 gap-6 mt-6 max-sm:grid-cols-1">
-            <SingleProjectCard />
-            <SingleProjectCard />
-            <SingleProjectCard />
-            <SingleProjectCard />
-            <SingleProjectCard />
+        <ul className="overflow-auto gap-4 flex flex-wrap mt-6 max-sm:grid-cols-1">
+            [allProjects.map((project)=>(
+                <SingleProjectCard key={projects.id} project={project} />
+            ))]
+           
+           
         </ul>
     );
 }

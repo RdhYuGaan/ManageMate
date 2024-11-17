@@ -1,4 +1,5 @@
 import React from "react";
+import { Project } from "../Data/AllProjects";
 
 export type SidebarMenuItem ={
     id:number;
@@ -39,6 +40,10 @@ export type AppType = {
         selectedIcon:IconData | null;
         setSelectedIcon:React.Dispatch<React.SetStateAction<IconData | null>>;
 
+    };
+    allProjectsObject: {
+        allProjects: Project[];
+        setAllProjects: React.Dispach<React.SetStateAction<Project[]>>;
     };
 
 };

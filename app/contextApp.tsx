@@ -3,6 +3,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { AppType, IconData, SidebarMenuItem } from "./types/Apptype";
 import { allIconsArray } from "./Data/AllIcons";
+import { Project, projectsdata } from "./Data/AllProjects";
+import AllProjects from "./Pages/AllProjects/Components/AllProjects";
 
 // Default state
 const defaultState: AppType = {
@@ -15,6 +17,7 @@ const defaultState: AppType = {
     allIconsDataObject: {allIconsData:[], setAllIconsData: ()=> {} },
     openIconWindowObject: {openIconWindow:false, setOpenIconWindow: () => {}},
     selectedIconObject: {selectedIcon:null, setSelectedIcon: () => {}},
+    allProjectsObject: {AllProjects: [] , setAllProjects:() =>{} },
 };
 
 // Create context
@@ -48,6 +51,9 @@ export default function ContextappProvider({
 
     const [openProjectWindow, setOpenProjectWindow] = useState(false);
     const [allIconsData, setAllIconsData] = useState<IconData[]>(allIconsArray);
+    const [openIconWindow, setOpenIconWindow]= useState(false);
+    const [selectedIcon, setSelectedIcon] =useState<IconData | null>(null);
+    const [allProjects, setallProjects] = useState<Project[]>([]);
     
 
 
@@ -65,12 +71,29 @@ export default function ContextappProvider({
         };
     }, []);
 
+
+    useEffect(()=>{
+        const fetchData= async () => {
+            try {
+                //simulate a network delay
+                await new Promise((reslove) => setTimeout(reslove,1000));
+
+                //update state
+                setallProjects(projectsdata);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+    }, []);
+    //close the sidebar on mobile view is flase
     useEffect(() => {
         if (!isMobileView) {
             setOpenSideBar(false);
         }
     }, [isMobileView]);
 
+    // clicked bar menuclicked and its close
     useEffect(() => {
         setOpenSideBar(false);
     }, [sideBarMenu]);
@@ -79,7 +102,7 @@ export default function ContextappProvider({
         <ContextApp.Provider
             value={{
                 openSideBarObject: { openSideBar, setOpenSideBar },
-                sideBarMenuObject: { sideBarMenu: sideBarMenu, setSideBarMenu },
+                sideBarMenuObject: {  sideBarMenu, setSideBarMenu },
                 openProjectWindowObject: {
                     openProjectWindow,
                     setOpenProjectWindow,
