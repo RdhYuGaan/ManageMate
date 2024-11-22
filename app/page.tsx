@@ -13,7 +13,7 @@ export default function Home() {
   const {
     openSideBarObject: { openSideBar },
     sideBarMenuObject: { sideBarMenu },
-    openProjectWindowObject: { openProjectWindow } = { openProjectWindow: false }, // Ensuring openProjectWindow has a default
+    openProjectWindowObject: { openProjectWindow }, // Ensuring openProjectWindow has a default
   } = useContextApp();
 
   const componentMap: Record<number, React.ReactNode> = {

@@ -5,6 +5,7 @@ import { AppType, IconData, SidebarMenuItem } from "./types/Apptype";
 import { allIconsArray } from "./Data/AllIcons";
 import { Project, projectsdata } from "./Data/AllProjects";
 import AllProjects from "./Pages/AllProjects/Components/AllProjects";
+import MoreDropDown from "./components/Windows/DropDowns/MoreDropDown";
 
 // Default state
 const defaultState: AppType = {
@@ -42,6 +43,11 @@ export default function ContextappProvider({
     const [openIconWindow, setOpenIconWindow] = useState(false);
     const [selectedIcon, setSelectedIcon] = useState<IconData | null>(null);
     const [allProjects, setAllProjects] = useState<Project[]>([]);
+    const [openDropDown, setOpenDropDown] = useState(false);
+    const [dropDownPositions, setDropDownPositions] = useState({
+        top:0,
+        left:0,
+    });
 
     // Handle screen resizing
     useEffect(() => {
@@ -86,7 +92,10 @@ export default function ContextappProvider({
                 allIconsDataObject: { allIconsData, setAllIconsData },
                 openIconWindowObject: { openIconWindow, setOpenIconWindow },
                 selectedIconObject: { selectedIcon, setSelectedIcon },
-                allProjectsObject: { allProjects, setAllProjects }, // Included allProjectsObject
+                allProjectsObject: { allProjects, setAllProjects }, 
+                dropDownPositionsObject: {MoreDropDownPositions, setDropDownPositions},
+                openDropDownObject: {openDropDown, setOpenDropDown},
+                              // Included allProjectsObject
             }}
         >
             {children}
