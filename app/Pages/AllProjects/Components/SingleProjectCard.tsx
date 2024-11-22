@@ -5,14 +5,15 @@ import CircleIcon from "@mui/icons-material/Circle";
 import { Project } from "@/app/Data/AllProjects";
 import { getIconComponent } from "@/app/functions/IconsAction";
 
-function SingleProjectCard({project}: {project:Project}) {
+function SingleProjectCard({ project }: { project: Project }) {
     return (
         <li className="w-[300px] flex flex-col max-md:w-[96%] gap-8 rounded-lg p-7 bg-white">
-            <ProjectCardHeader />
+            <ProjectCardHeader project={project} />  {/* Pass project prop here */}
             <ProjectCardBody />
             <ProjectCardFooter />
         </li>
     );
+}
 
     
     function ProjectCardFooter() {
@@ -32,24 +33,22 @@ function SingleProjectCard({project}: {project:Project}) {
             </div>
         );
     }
-}
 
 
 
-function ProjectCardHeader() {
+
+function ProjectCardHeader({ project }: { project: Project }) {  {/* Add project prop */}
     return (
         <div className="flex justify-between items-center">
-
             {/* title and icon */}
             <div className="flex gap-3 items-center">
-
                 {/* project icon */}
                 <div className="bg-orange-600 flex justify-center w-[30px] h-[30px] items-center rounded-md">
                    {getIconComponent(project.icon, "text-white","23px")}
                 </div>
                 {/* project title */}
                 <div className="flex flex-col">
-                <span className="font-semibold text-[19px] text-slate-800">{project.title}</span>
+                    <span className="font-semibold text-[19px] text-slate-800">{project.title}</span>
                     <span className="text-slate-600 text-[13px]">2 days ago..</span>
                 </div>
             </div>

@@ -3,7 +3,7 @@ import SideBar from "./components/Sidebar";
 import AllProjects from "./Pages/AllProjects/Components/AllProjects";
 import AllTasks from "./Pages/AllTasks/Components/AllTasks";
 import { useContextApp } from "./contextApp";
-import {ProjectWindow} from "./components/Windows/ProjectWindow";
+import ProjectWindow from "./components/Windows/ProjectWindow";
 import {useCallback, useState } from "react";
 import IconsWindow from "./components/Windows/IconWindow";
 
