@@ -32,68 +32,47 @@ export default function ContextappProvider({
     const [openSideBar, setOpenSideBar] = useState(false);
     const [isMobileView, setIsMobileView] = useState(false);
     const [sideBarMenu, setSideBarMenu] = useState<SidebarMenuItem[]>([
-        {
-            id: 1,
-            name: "All Projects",
-            isSelected: true,
-        },
-        {
-            id: 2,
-            name: "All Tasks",
-            isSelected: false,
-        },
-        {
-            id: 3,
-            name: "Logout",
-            isSelected: false,
-        },
+        { id: 1, name: "All Projects", isSelected: true },
+        { id: 2, name: "All Tasks", isSelected: false },
+        { id: 3, name: "Logout", isSelected: false },
     ]);
 
     const [openProjectWindow, setOpenProjectWindow] = useState(false);
     const [allIconsData, setAllIconsData] = useState<IconData[]>(allIconsArray);
-    const [openIconWindow, setOpenIconWindow]= useState(false);
-    const [selectedIcon, setSelectedIcon] =useState<IconData | null>(null);
-    const [allProjects, setallProjects] = useState<Project[]>([]);
-    
+    const [openIconWindow, setOpenIconWindow] = useState(false);
+    const [selectedIcon, setSelectedIcon] = useState<IconData | null>(null);
+    const [allProjects, setAllProjects] = useState<Project[]>([]);
 
-
+    // Handle screen resizing
     useEffect(() => {
         function handleResize() {
             setIsMobileView(window.innerWidth <= 940);
         }
-
         handleResize();
 
         window.addEventListener("resize", handleResize);
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
+        return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-
-    useEffect(()=>{
-        const fetchData= async () => {
+    // Fetch project data on mount
+    useEffect(() => {
+        const fetchData = async () => {
             try {
-                //simulate a network delay
-                await new Promise((reslove) => setTimeout(reslove,1000));
-
-                //update state
-                setallProjects(projectsdata);
+                await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate network delay
+                setAllProjects(projectsdata); // Update state with project data
             } catch (error) {
-                console.log(error);
+                console.error("Error fetching projects:", error);
             }
         };
         fetchData();
     }, []);
-    //close the sidebar on mobile view is flase
+
+    // Close sidebar if not in mobile view
     useEffect(() => {
-        if (!isMobileView) {
-            setOpenSideBar(false);
-        }
+        if (!isMobileView) setOpenSideBar(false);
     }, [isMobileView]);
 
-    // clicked bar menuclicked and its close
+    // Close sidebar when a menu item is clicked
     useEffect(() => {
         setOpenSideBar(false);
     }, [sideBarMenu]);
@@ -102,21 +81,19 @@ export default function ContextappProvider({
         <ContextApp.Provider
             value={{
                 openSideBarObject: { openSideBar, setOpenSideBar },
-                sideBarMenuObject: {  sideBarMenu, setSideBarMenu },
-                openProjectWindowObject: {
-                    openProjectWindow,
-                    setOpenProjectWindow,
-                } ,
-
-                allIconsDataObject: {allIconsData, setAllIconsData},
-                openIconWindowObject: {openIconWindow, setOpenIconWindow},
-                selectedIconObject: {selectedIcon, setSelectedIcon},
+                sideBarMenuObject: { sideBarMenu, setSideBarMenu },
+                openProjectWindowObject: { openProjectWindow, setOpenProjectWindow },
+                allIconsDataObject: { allIconsData, setAllIconsData },
+                openIconWindowObject: { openIconWindow, setOpenIconWindow },
+                selectedIconObject: { selectedIcon, setSelectedIcon },
+                allProjectsObject: { allProjects, setAllProjects }, // Included allProjectsObject
             }}
         >
             {children}
         </ContextApp.Provider>
     );
 }
+
 
 // Create the hook
 export function useContextApp() {

@@ -43,7 +43,7 @@ export type AppType = {
     };
     allProjectsObject: {
         allProjects: Project[];
-        setAllProjects: React.Dispach<React.SetStateAction<Project[]>>;
+        setAllProjects: React.Dispatch<React.SetStateAction<Project[]>>;
     };
 
 };

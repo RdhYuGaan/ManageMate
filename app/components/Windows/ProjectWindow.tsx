@@ -153,7 +153,7 @@ function ProjectInput({
           <input
             {...register("projectName")}
             placeholder="Enter project name..."
-            className="w-full rounded-md border outline-none p-[10px] text-[13px]"
+            className="w-full rounded-md border text-slate-700 outline-none p-[10px] text-[13px]"
           />
           {errors.projectName && (
             <p className="text-red-500 text-[11px] mt-2">{errors.projectName.message}</p>
