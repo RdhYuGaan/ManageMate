@@ -14,43 +14,44 @@ function SingleProjectCard({ project }: { project: Project }) {
     );
 
     return (
-        <li className="w-[300px] flex flex-col max-md:w-[96%] h-[306px] gap-8 rounded-lg p-7 bg-white">
-            {/* me 3ma function tik ayin krnn */}
+        <li className="flex flex-col max-md:w-[96%] h-[306px] gap-8 rounded-lg p-7 bg-white shadow-sm">
             <ProjectCardHeader project={project} daysLeft={daysLeft} />
-            <ProjectCardBody project={project} />  mee 3 ayin krnna
+            <ProjectCardBody project={project} />
             <ProjectCardFooter progressPercentage={progressPercentage} />
         </li>
     );
 }
 
-function ProjectCardHeader() {
-    const threeDotsRef= useRef<HTMLDivElement>(null);
+function ProjectCardHeader({
+    project,
+    daysLeft,
+}: {
+    project: Project;
+    daysLeft: number;
+}) {
+    const threeDotsRef = useRef<HTMLDivElement>(null);
     const {
-        dropDownPositionsObject: {setOpenDropDown},
-        openDropDownObject: {setOpenDropDown},
+        dropDownPositionsObject: { setDropDownPositions },
+        openDropDownObject: { setOpenDropDown },
+    } = useContextApp();
 
-    }= useContextApp();
-
-    function openDropDown(event: React.MouseEvent){
+    function openDropDown(event: React.MouseEvent) {
         event.preventDefault();
         event.stopPropagation();
-        if(threeDotsRef.current){
+        if (threeDotsRef.current) {
             const rect = threeDotsRef.current.getBoundingClientRect();
-            const {top,left}=rect;
+            const { top, left } = rect;
             setDropDownPositions({
-                top:top+ window.scrollY +30,
-                left: left+ window.scrollX,
-
+                top: top + window.scrollY + 30,
+                left: left + window.scrollX,
             });
-
             setOpenDropDown(true);
         }
     }
+
     return (
         <div className="flex justify-between items-center mb-1">
-            {/* title and icon */}
             <div className="flex gap-3 items-center">
-                {/* project icon */}
                 <div className="bg-orange-600 flex justify-center w-[30px] h-[30px] items-center rounded-md">
                     {getIconComponent(project.icon, "text-white", "23px")}
                 </div>
@@ -61,22 +62,17 @@ function ProjectCardHeader() {
                     <span className="text-slate-600 text-[13px]">
                         {daysLeft === 0
                             ? "Today"
-                            : daysLeft + ` day${daysLeft > 1 ? "s" : ""} ago`}
+                            : `${daysLeft} day${daysLeft > 1 ? "s" : ""} ago`}
                     </span>
                 </div>
             </div>
-
-            {/* more options */}
-            <div 
-            ref={threeDotsRef}
-            onClick={openDropDown}
-            className="w-6 h-6 flex justify-center items-center rounded-full bg-slate-100"
+            <div
+                ref={threeDotsRef}
+                onClick={openDropDown}
+                className="w-6 h-6 flex justify-center items-center rounded-full bg-slate-100 cursor-pointer"
             >
-                <MoreVertIcon className="text-slate-800 text-[19px] cursor-pointer" />
+                <MoreVertIcon className="text-slate-800 text-[19px]" />
             </div>
-
-
-            
         </div>
     );
 }
@@ -86,10 +82,10 @@ function ProjectCardBody({ project }: { project: Project }) {
         <div className="h-[80px] flex flex-col gap-3 mb-1">
             {project.tasks.length === 0 && (
                 <div className="flex justify-center flex-col gap-3 mt-[15px] items-center h-full">
-                    <LibraryAdd className="text-slate-400 opasity-40 text-[26px] cursor-pointer hover:opacity-100 hover:text-orange-600" />
+                    <LibraryAdd className="text-slate-400 opacity-40 text-[26px] cursor-pointer hover:opacity-100 hover:text-orange-600" />
                     <span className="text-slate-400 opacity-45 text-[13px]">
                         No tasks created yet...
-                    </span>                    
+                    </span>
                 </div>
             )}
             <ul className="text-slate-400 text-[13px] flex flex-col gap-2 ml-3">
@@ -100,13 +96,11 @@ function ProjectCardBody({ project }: { project: Project }) {
                     </li>
                 ))}
             </ul>
-            <div className="text-[11px] text-slate-400">
-                {project.tasks.length > 3 && (
-                    <span className="text-orange-600">
-                        +{project.tasks.length - 3} tasks
-                    </span>
-                )}
-            </div>
+            {project.tasks.length > 3 && (
+                <div className="text-[11px] text-orange-600">
+                    +{project.tasks.length - 3} tasks
+                </div>
+            )}
         </div>
     );
 }

@@ -4,32 +4,30 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { AppType, IconData, SidebarMenuItem } from "./types/Apptype";
 import { allIconsArray } from "./Data/AllIcons";
 import { Project, projectsdata } from "./Data/AllProjects";
-import AllProjects from "./Pages/AllProjects/Components/AllProjects";
-import MoreDropDown from "./components/Windows/DropDowns/MoreDropDown";
 
+// Default state
 // Default state
 const defaultState: AppType = {
     openSideBarObject: { openSideBar: false, setOpenSideBar: () => {} },
     sideBarMenuObject: { sideBarMenu: [], setSideBarMenu: () => {} },
     openProjectWindowObject: {
-        openProjectWindow:false,
-        setOpenProjectWindow: ()=>{},
+        openProjectWindow: false,
+        setOpenProjectWindow: () => {},
     },
-    allIconsDataObject: {allIconsData:[], setAllIconsData: ()=> {} },
-    openIconWindowObject: {openIconWindow:false, setOpenIconWindow: () => {}},
-    selectedIconObject: {selectedIcon:null, setSelectedIcon: () => {}},
-    allProjectsObject: {AllProjects: [] , setAllProjects:() =>{} },
+    allIconsDataObject: { allIconsData: [], setAllIconsData: () => {} },
+    openIconWindowObject: { openIconWindow: false, setOpenIconWindow: () => {} },
+    selectedIconObject: { selectedIcon: null, setSelectedIcon: () => {} },
+    allProjectsObject: { allProjects: [], setAllProjects: () => {} }, // Corrected property name
+    dropDownPositionsObject: { dropDownPositions: { top: 0, left: 0 }, setDropDownPositions: () => {} },
+    openDropDownObject: { openDropDown: false, setOpenDropDown: () => {} },
 };
+
 
 // Create context
 const ContextApp = createContext<AppType>(defaultState);
 
 // Create provider
-export default function ContextappProvider({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+export default function ContextappProvider({ children }: { children: React.ReactNode }) {
     const [openSideBar, setOpenSideBar] = useState(false);
     const [isMobileView, setIsMobileView] = useState(false);
     const [sideBarMenu, setSideBarMenu] = useState<SidebarMenuItem[]>([
@@ -44,10 +42,11 @@ export default function ContextappProvider({
     const [selectedIcon, setSelectedIcon] = useState<IconData | null>(null);
     const [allProjects, setAllProjects] = useState<Project[]>([]);
     const [openDropDown, setOpenDropDown] = useState(false);
-    const [dropDownPositions, setDropDownPositions] = useState({
-        top:0,
-        left:0,
-    });
+    const [dropDownPositions, setDropDownPositions] = useState({ top: 0, left: 0 });
+
+    const [selectedProject, setSelectedProject]= useState<Project | null>(null);
+    const [openConfirmationWindow, setConfirmationWindow] = useState<boolean>(false);
+        
 
     // Handle screen resizing
     useEffect(() => {
@@ -78,11 +77,6 @@ export default function ContextappProvider({
         if (!isMobileView) setOpenSideBar(false);
     }, [isMobileView]);
 
-    // Close sidebar when a menu item is clicked
-    useEffect(() => {
-        setOpenSideBar(false);
-    }, [sideBarMenu]);
-
     return (
         <ContextApp.Provider
             value={{
@@ -92,17 +86,15 @@ export default function ContextappProvider({
                 allIconsDataObject: { allIconsData, setAllIconsData },
                 openIconWindowObject: { openIconWindow, setOpenIconWindow },
                 selectedIconObject: { selectedIcon, setSelectedIcon },
-                allProjectsObject: { allProjects, setAllProjects }, 
-                dropDownPositionsObject: {MoreDropDownPositions, setDropDownPositions},
-                openDropDownObject: {openDropDown, setOpenDropDown},
-                              // Included allProjectsObject
+                allProjectsObject: { allProjects, setAllProjects },
+                dropDownPositionsObject: { dropDownPositions, setDropDownPositions },
+                openDropDownObject: { openDropDown, setOpenDropDown },
             }}
         >
             {children}
         </ContextApp.Provider>
     );
 }
-
 
 // Create the hook
 export function useContextApp() {

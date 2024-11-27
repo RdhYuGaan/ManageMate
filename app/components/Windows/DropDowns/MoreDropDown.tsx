@@ -2,7 +2,7 @@ import { useContextApp } from "@/app/contextApp";
 import React, { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import DeleteOutlineOutlined from "@mui/icons-material";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 function MoreDropDown() {
     const {
@@ -26,14 +26,12 @@ function MoreDropDown() {
 
         if (openDropDown) {
             document.addEventListener("mousedown", handleClickOutside);
-            // Prevent scrolling
         } else {
-            document.removeEventListener("mousedown", handleClickOutside); // Restore scrolling
+            document.removeEventListener("mousedown", handleClickOutside);
         }
 
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
-            // Restore scrolling on cleanup
         };
     }, [openDropDown, setOpenDropDown]);
 
@@ -41,10 +39,10 @@ function MoreDropDown() {
         <div
             ref={menuRef}
             style={{
-                top: dropDownPositions?.top ,
-                left: dropDownPositions?.left 
+                top: dropDownPositions?.top,
+                left: dropDownPositions?.left,
             }}
-            className={`bg-white fixed z-[90] top-14 left-24 px-5 py-6 w-[130px] border-slate-50 shadow-md rounded-lg flex flex-col gap-7 ${
+            className={`bg-white fixed z-[90] px-5 py-6 w-[130px] border-slate-50 shadow-md rounded-lg flex flex-col gap-7 ${
                 openDropDown ? "block" : "hidden"
             }`}
         >
@@ -53,10 +51,9 @@ function MoreDropDown() {
                     key={dropDownOption.id}
                     className={`flex gap-1 items-center text-slate-400 cursor-pointer
                      hover:text-orange-600 ${
-                      dropDownOption.id === 2 ? "hover:text-red-600" 
-                    }`}
+                         dropDownOption.id === 2 ? "hover:text-red-600" : ""
+                     }`}
                 >
-                    {/* Icon */}
                     {dropDownOption.icon}
                     <span className="text-[14px]">{dropDownOption.name}</span>
                 </div>
