@@ -5,7 +5,7 @@ import { AppType, IconData, SidebarMenuItem } from "./types/Apptype";
 import { allIconsArray } from "./Data/AllIcons";
 import { Project, projectsdata } from "./Data/AllProjects";
 
-// Default state
+
 // Default state
 const defaultState: AppType = {
     openSideBarObject: { openSideBar: false, setOpenSideBar: () => {} },
@@ -44,6 +44,8 @@ export default function ContextappProvider({ children }: { children: React.React
     const [openDropDown, setOpenDropDown] = useState(false);
     const [dropDownPositions, setDropDownPositions] = useState({ top: 0, left: 0 });
 
+
+    // select project window
     const [selectedProject, setSelectedProject]= useState<Project | null>(null);
     const [openConfirmationWindow, setConfirmationWindow] = useState<boolean>(false);
         
@@ -89,6 +91,8 @@ export default function ContextappProvider({ children }: { children: React.React
                 allProjectsObject: { allProjects, setAllProjects },
                 dropDownPositionsObject: { dropDownPositions, setDropDownPositions },
                 openDropDownObject: { openDropDown, setOpenDropDown },
+                selectedProjectObject:{selectedProject, setSelectedProject},
+                openConfirmationWindowObject:{openConfirmationWindow, setOpenConfirmationWindow,},
             }}
         >
             {children}

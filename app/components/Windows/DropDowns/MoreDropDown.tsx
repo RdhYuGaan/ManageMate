@@ -8,6 +8,8 @@ function MoreDropDown() {
     const {
         openDropDownObject: { openDropDown, setOpenDropDown },
         dropDownPositionsObject: { setDropDownPositions, dropDownPositions },
+        selectedProjectObject: {setSelectedProject},
+        openConfirmationwindowObject: {setOpenConfirmationWindow},
     } = useContextApp();
 
     const [dropDownOptions, setDropDownOptions] = useState([
@@ -17,10 +19,22 @@ function MoreDropDown() {
 
     const menuRef = React.useRef<HTMLDivElement>(null);
 
+    function ClickedItemHandler(id: number) {
+        if (id===2){
+            //open the window to confirm the delection
+            setOpenConfirmationWindow(true);
+            //close drop down menu
+            setOpenDropDown(false);
+        }
+    }
+
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                //close drop down menu if user click outside of it
                 setOpenDropDown(false);
+                //set the select project to null if user click outside
+                setSelectedProject(null);
             }
         }
 
@@ -42,13 +56,15 @@ function MoreDropDown() {
                 top: dropDownPositions?.top,
                 left: dropDownPositions?.left,
             }}
-            className={`bg-white fixed z-[90] px-5 py-6 w-[130px] border-slate-50 shadow-md rounded-lg flex flex-col gap-7 ${
+            className={`bg-white fixed z-[90] px-5 py-6 w-[130px] border-slate-50 
+                shadow-md rounded-lg flex flex-col gap-7 ${
                 openDropDown ? "block" : "hidden"
             }`}
         >
             {dropDownOptions.map((dropDownOption) => (
                 <div
                     key={dropDownOption.id}
+                    onClick={()=> clickedItemHandler(dropDownOption.id)}
                     className={`flex gap-1 items-center text-slate-400 cursor-pointer
                      hover:text-orange-600 ${
                          dropDownOption.id === 2 ? "hover:text-red-600" : ""

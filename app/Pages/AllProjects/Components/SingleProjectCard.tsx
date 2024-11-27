@@ -15,29 +15,26 @@ function SingleProjectCard({ project }: { project: Project }) {
 
     return (
         <li className="flex flex-col max-md:w-[96%] h-[306px] gap-8 rounded-lg p-7 bg-white shadow-sm">
-            <ProjectCardHeader project={project} daysLeft={daysLeft} />
-            <ProjectCardBody project={project} />
-            <ProjectCardFooter progressPercentage={progressPercentage} />
+            <ProjectCardHeader  />
+            <ProjectCardBody />
+            <ProjectCardFooter  />
         </li>
     );
 }
 
-function ProjectCardHeader({
-    project,
-    daysLeft,
-}: {
-    project: Project;
-    daysLeft: number;
-}) {
+function ProjectCardHeader(){
+
     const threeDotsRef = useRef<HTMLDivElement>(null);
     const {
         dropDownPositionsObject: { setDropDownPositions },
         openDropDownObject: { setOpenDropDown },
+        selectedProjectObject: {setSelectedProject, selectedProject},
     } = useContextApp();
 
     function openDropDown(event: React.MouseEvent) {
         event.preventDefault();
         event.stopPropagation();
+
         if (threeDotsRef.current) {
             const rect = threeDotsRef.current.getBoundingClientRect();
             const { top, left } = rect;
@@ -46,12 +43,17 @@ function ProjectCardHeader({
                 left: left + window.scrollX,
             });
             setOpenDropDown(true);
+            //select the project when clicked
+            setSelectedProject(project);
         }
     }
+    console.log(selectedProject);
 
     return (
         <div className="flex justify-between items-center mb-1">
+            {/* title and iCon */}
             <div className="flex gap-3 items-center">
+                {/* project icon */}
                 <div className="bg-orange-600 flex justify-center w-[30px] h-[30px] items-center rounded-md">
                     {getIconComponent(project.icon, "text-white", "23px")}
                 </div>

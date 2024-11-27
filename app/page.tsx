@@ -1,19 +1,19 @@
-'use client'
+'use client';
 import SideBar from "./components/Sidebar";
 import AllProjects from "./Pages/AllProjects/Components/AllProjects";
 import AllTasks from "./Pages/AllTasks/Components/AllTasks";
 import { useContextApp } from "./contextApp";
 import ProjectWindow from "./components/Windows/ProjectWindow";
-import {useCallback, useState } from "react";
 import IconsWindow from "./components/Windows/IconWindow";
-
+import MoreDropDown from "./components/Windows/DropDowns/MoreDropDown";
+import ConfirmationWindow from "./Window/DropDowns/ConfirmationWindow";
 
 export default function Home() {
-
   const {
     openSideBarObject: { openSideBar },
     sideBarMenuObject: { sideBarMenu },
-    openProjectWindowObject: { openProjectWindow }, // Ensuring openProjectWindow has a default
+    openProjectWindowObject: { openProjectWindow },
+    openConfirmationWindowObject: { openConfirmationWindow }, // Destructure here
   } = useContextApp();
 
   const componentMap: Record<number, React.ReactNode> = {
@@ -26,11 +26,17 @@ export default function Home() {
 
   return (
     <div className="flex w-full h-screen poppins">
+      <ConfirmationWindow />
+      <MoreDropDown />
       <IconsWindow />
       <ProjectWindow />
 
-      {(openSideBar || openProjectWindow) && (
-        <div className={`w-full h-full ${openProjectWindow ? "z-[70]" : "z-50"} bg-slate-800 fixed opacity-30`}
+      {/* Soft layer */}
+      {(openSideBar || openProjectWindow || openConfirmationWindow) && (
+        <div
+          className={`w-full h-full ${
+            openProjectWindow || openConfirmationWindow ? "z-[70]" : "z-50"
+          } bg-slate-800 fixed opacity-30`}
         ></div>
       )}
 
@@ -39,8 +45,6 @@ export default function Home() {
 
       {/* Selected components */}
       {selectedComponent && selectedComponent}
-      
     </div>
-    
   );
 }
