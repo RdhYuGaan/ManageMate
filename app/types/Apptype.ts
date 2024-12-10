@@ -24,13 +24,13 @@ export type AppType = {
         sideBarMenu: SidebarMenuItem[];
         setSideBarMenu: React.Dispatch<React.SetStateAction<SidebarMenuItem[]>>;
     },
-    openProjectWindowObject:{
+    openProjectWindowObject: {
         openProjectWindow: boolean;
         setOpenProjectWindow: React.Dispatch<React.SetStateAction<boolean>>;
     };
     allIconsDataObject: {
         allIconsData: IconData[];
-        setAllIconsData: React.Dispatch<React.SetStateAction<IconData[]>>
+        setAllIconsData: React.Dispatch<React.SetStateAction<IconData[]>>;
     };
     openIconWindowObject: {
         openIconWindow: boolean;
@@ -54,6 +54,14 @@ export type AppType = {
     openDropDownObject: {
         openDropDown: boolean;
         setOpenDropDown: React.Dispatch<React.SetStateAction<boolean>>;
+    };
+    openConfirmationWindowObject: { // Add this property
+        openConfirmationWindow: boolean;
+        setOpenConfirmationWindow: React.Dispatch<React.SetStateAction<boolean>>;
+    };
+    selectedProjectObject: { // Add this property too (if not already defined)
+        selectedProject: Project | null;
+        setSelectedProject: React.Dispatch<React.SetStateAction<Project | null>>;
     };
 };
 

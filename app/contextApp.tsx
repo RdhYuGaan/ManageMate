@@ -7,24 +7,27 @@ import { Project, projectsdata } from "./Data/AllProjects";
 
 
 // Default state
+// Default state
 const defaultState: AppType = {
     openSideBarObject: { openSideBar: false, setOpenSideBar: () => {} },
     sideBarMenuObject: { sideBarMenu: [], setSideBarMenu: () => {} },
-    openProjectWindowObject: {
-        openProjectWindow: false,
-        setOpenProjectWindow: () => {},
-    },
+    openProjectWindowObject: { openProjectWindow: false, setOpenProjectWindow: () => {} },
     allIconsDataObject: { allIconsData: [], setAllIconsData: () => {} },
     openIconWindowObject: { openIconWindow: false, setOpenIconWindow: () => {} },
     selectedIconObject: { selectedIcon: null, setSelectedIcon: () => {} },
-    allProjectsObject: { allProjects: [], setAllProjects: () => {} }, // Corrected property name
+    allProjectsObject: { allProjects: [], setAllProjects: () => {} },
     dropDownPositionsObject: { dropDownPositions: { top: 0, left: 0 }, setDropDownPositions: () => {} },
     openDropDownObject: { openDropDown: false, setOpenDropDown: () => {} },
+    openConfirmationWindowObject: { openConfirmationWindow: false, setOpenConfirmationWindow: () => {} }, // Added properly here
+    selectedProjectObject: { selectedProject: null, setSelectedProject: () => {} }, // Added properly here
 };
+
 
 
 // Create context
 const ContextApp = createContext<AppType>(defaultState);
+
+
 
 // Create provider
 export default function ContextappProvider({ children }: { children: React.ReactNode }) {
@@ -35,7 +38,6 @@ export default function ContextappProvider({ children }: { children: React.React
         { id: 2, name: "All Tasks", isSelected: false },
         { id: 3, name: "Logout", isSelected: false },
     ]);
-
     const [openProjectWindow, setOpenProjectWindow] = useState(false);
     const [allIconsData, setAllIconsData] = useState<IconData[]>(allIconsArray);
     const [openIconWindow, setOpenIconWindow] = useState(false);
@@ -44,13 +46,11 @@ export default function ContextappProvider({ children }: { children: React.React
     const [openDropDown, setOpenDropDown] = useState(false);
     const [dropDownPositions, setDropDownPositions] = useState({ top: 0, left: 0 });
 
+    // Additional states
+    const [openConfirmationWindow, setOpenConfirmationWindow] = useState(false);
+    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-    // select project window
-    const [selectedProject, setSelectedProject]= useState<Project | null>(null);
-    const [openConfirmationWindow, setConfirmationWindow] = useState<boolean>(false);
-        
-
-    // Handle screen resizing
+    // Screen resizing
     useEffect(() => {
         function handleResize() {
             setIsMobileView(window.innerWidth <= 940);
@@ -61,7 +61,7 @@ export default function ContextappProvider({ children }: { children: React.React
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    // Fetch project data on mount
+    // Fetch project data
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -74,7 +74,7 @@ export default function ContextappProvider({ children }: { children: React.React
         fetchData();
     }, []);
 
-    // Close sidebar if not in mobile view
+    // Auto-close sidebar if not in mobile view
     useEffect(() => {
         if (!isMobileView) setOpenSideBar(false);
     }, [isMobileView]);
@@ -91,14 +91,15 @@ export default function ContextappProvider({ children }: { children: React.React
                 allProjectsObject: { allProjects, setAllProjects },
                 dropDownPositionsObject: { dropDownPositions, setDropDownPositions },
                 openDropDownObject: { openDropDown, setOpenDropDown },
-                selectedProjectObject:{selectedProject, setSelectedProject},
-                openConfirmationWindowObject:{openConfirmationWindow, setOpenConfirmationWindow,},
+                openConfirmationWindowObject: { openConfirmationWindow, setOpenConfirmationWindow }, // Correctly included
+                selectedProjectObject: { selectedProject, setSelectedProject }, // Correctly included
             }}
         >
             {children}
         </ContextApp.Provider>
     );
 }
+
 
 // Create the hook
 export function useContextApp() {

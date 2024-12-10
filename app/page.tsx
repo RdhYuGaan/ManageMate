@@ -6,7 +6,7 @@ import { useContextApp } from "./contextApp";
 import ProjectWindow from "./components/Windows/ProjectWindow";
 import IconsWindow from "./components/Windows/IconWindow";
 import MoreDropDown from "./components/Windows/DropDowns/MoreDropDown";
-import ConfirmationWindow from "./Window/DropDowns/ConfirmationWindow";
+import ConfirmationWindow from "./components/Windows/DropDowns/ConfirmationWindow";
 
 export default function Home() {
   const {

@@ -9,7 +9,7 @@ function MoreDropDown() {
         openDropDownObject: { openDropDown, setOpenDropDown },
         dropDownPositionsObject: { setDropDownPositions, dropDownPositions },
         selectedProjectObject: {setSelectedProject},
-        openConfirmationwindowObject: {setOpenConfirmationWindow},
+        openConfirmationWindowObject: {setOpenConfirmationWindow},
     } = useContextApp();
 
     const [dropDownOptions, setDropDownOptions] = useState([
@@ -19,7 +19,7 @@ function MoreDropDown() {
 
     const menuRef = React.useRef<HTMLDivElement>(null);
 
-    function ClickedItemHandler(id: number) {
+    function clickedItemHandler(id: number) {
         if (id===2){
             //open the window to confirm the delection
             setOpenConfirmationWindow(true);

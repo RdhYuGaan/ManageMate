@@ -45,3 +45,4 @@ function ConfirmationWindow() {
 
 
 }
+export default ConfirmationWindow;
