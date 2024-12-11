@@ -29,3 +29,21 @@ export function addNewProject(
         reset();
     } catch (error){}
 }
+
+export function deleteProject(
+    selectedProject: Project | null,
+    setSelectedProject: React.Dispatch<React.setStateAction<Project | null>>,
+    allProjects: Project[],
+    setAllProjects: React.Dispach<React.setStateAction<Project[]>>,
+    setOpenConfirmationWindow: React.Dispach<React.setStateAction<boolean>>
+) {
+    if (selectedProject) {
+        const updateAllProjects = allProjects.filter(
+            (project)=> project.id !==selectedProject.id
+        );
+
+        setAllProjects(updateAllProjects);
+        setSelectedProject(null);
+        setOpenConfirmationWindow(false);
+    }
+}

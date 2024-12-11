@@ -7,7 +7,7 @@ import ProjectWindow from "./components/Windows/ProjectWindow";
 import IconsWindow from "./components/Windows/IconWindow";
 import MoreDropDown from "./components/Windows/DropDowns/MoreDropDown";
 import ConfirmationWindow from "./components/Windows/DropDowns/ConfirmationWindow";
-
+import {Toaster} from "react-hot-toast"
 export default function Home() {
   const {
     openSideBarObject: { openSideBar },
@@ -26,6 +26,7 @@ export default function Home() {
 
   return (
     <div className="flex w-full h-screen poppins">
+      <Toaster />
       <ConfirmationWindow />
       <MoreDropDown />
       <IconsWindow />
