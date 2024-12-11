@@ -4,23 +4,29 @@ import { useContextApp } from "@/app/contextApp";
 import BorderAllIcon from "@mui/icons-material/BorderAll";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import {v4 as uuidv4} from "uuid";
+import {toast} from "react-hot-toast";
+
 import {
   useForm,
   SubmitHandler,
   UseFormRegister,
   FieldErrors,
-  UseFormReset,
 } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { v4 as uuidv4 } from "uuid";
+import { getIconComponent } from "@/app/functions/IconsAction";
+import { addNewProject } from "@/app/functions/projectsActions";
+import ListAlticon from "@mui/icons-material/ListAlt";
+
+
 
 // Validation schema
 const schema = z.object({
   projectName: z
     .string()
     .min(1, { message: "Project name is required" })
-    .max(20, { message: "Project name must be 20 characters or fewer" }),
+    .max(30, { message: "Project name must be 20 characters or fewer" }),
 });
 
 export type FormData = z.infer<typeof schema>;
@@ -46,18 +52,33 @@ function ProjectWindow() {
   });
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
+    //check if project already exits
     const existingProject = allProjects.find(
       (project: any) =>
         project.title.toLowerCase() === data.projectName.toLowerCase()
     );
-
+      //if it exit,return error
     if (existingProject) {
       setError("projectName", {
         type: "manual",
         message: "Project already exists",
       });
+      //set focus to the project name input
       setFocus("projectName");
     } else {
+      //call  addnewproject function.if every thing is valied
+      projectsFunction(data);
+    }
+  };
+
+  async function projectsFunction(data: FromData){
+    try {
+      //set the loading as true
+      setLoding(true);
+
+      //simulate a delay
+      await new Promise((reslove)=>setTimeout(reslove,1000));
+
       addNewProject(
         data,
         allProjects,
@@ -65,9 +86,19 @@ function ProjectWindow() {
         setOpenProjectWindow,
         selectedIcon,
         reset
+
       );
+    
+    }catch (error){
+      console.log(error){
+        toast.error("something went wrong");
+      } finally {
+        //set the loading as false
+        setLoading(false);
+        toast.success("project added successfully");
+      }
     }
-  };
+  }
 
   const handleClose = () => {
     setOpenProjectWindow(false);
