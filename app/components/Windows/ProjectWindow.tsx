@@ -33,11 +33,12 @@ export type FormData = z.infer<typeof schema>;
 
 
 
-function ProjectWindow() {
+ export function ProjectWindow() {
   const {
     openProjectWindowObject: { openProjectWindow, setOpenProjectWindow },
     allProjectsObject: { allProjects, setAllProjects },
     selectedIconObject: { selectedIcon, setSelectedIcon },
+    selectedProjectObject: {selectedProject, setSelectedProject},
   } = useContextApp();
 
   const {
@@ -99,15 +100,30 @@ function ProjectWindow() {
       }
     }
   }
-
+  //close project window and reset the form
   const handleClose = () => {
     setOpenProjectWindow(false);
     reset();
   };
-
+//reset form when openproject window state changes
   useLayoutEffect(() => {
+    //if project window state is true
     if (openProjectWindow) {
-      reset();
+      //if selected project state is not null
+      if (!selectedProject) {
+        reset();
+      } else {
+        //else we are going to edit a project
+        setValue("projectName", selectedProject.title);
+
+        const findIconInAllconsArray = allIconsArray.find(
+          (icon) => icon.name === selectedProject.icon
+        );
+        if (findIconInAllconsArray) {
+          setSelectedIcon(findIconInAllIconsArray);
+        }
+      }
+      
     }
   }, [openProjectWindow, reset]);
 
@@ -119,9 +135,12 @@ function ProjectWindow() {
             -translate-x-1/2 absolute flex flex-col gap-3 border border-slate-50 bg-white rounded-lg shadow-md`}
     >
       <Header handleClose={handleClose} />
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 pt-8 px-7 mt-3">
+      <form 
+        onSubmit={handleSubmit(onSubmit)} 
+        className="flex flex-col gap-2 pt-8 px-7 mt-3">
+
         <ProjectInput register={register} errors={errors} />
-        <Footer handleClose={handleClose} />
+        <Footer handleClose={handleClose} isLoading={isLoading} />
       </form>
     </div>
   );
@@ -130,21 +149,27 @@ function ProjectWindow() {
 function Header({ handleClose }: { handleClose: () => void }) {
   const {
     selectedIconObject: { setSelectedIcon },
+    selectedProjectObject: {selectedProject, setSelectedProject},
   } = useContextApp();
 
   return (
     <div className="flex justify-between items-center pt-7 px-7">
       <div className="flex items-center gap-2">
         <div className="p-[7px] bg-orange-200 rounded-lg flex items-center justify-center">
-          <BorderAllIcon sx={{ fontSize: "21px" }} className="text-orange-600" />
+          <BorderAllIcon 
+            sx={{ fontSize: "21px" }} 
+            className="text-orange-600" />
         </div>
-        <span className="font-semibold text-lg text-slate-600">Add Project</span>
+        <span className="font-semibold text-lg">
+          {selectedProject? "edit Project": "new Project"}
+        </span>
       </div>
       <CloseOutlinedIcon
         sx={{ fontSize: "18px" }}
         className="text-slate-300 cursor-pointer"
         onClick={() => {
           setSelectedIcon(null);
+          setSelectedProject(null);
           handleClose();
         }}
       />
@@ -163,6 +188,7 @@ function ProjectInput({
     openProjectWindowObject: { openProjectWindow },
     openIconWindowObject: { setOpenIconWindow },
     selectedIconObject: { selectedIcon },
+    selectedProjectObject: {selectedProject},
   } = useContextApp();
 
   useEffect(() => {
@@ -176,18 +202,22 @@ function ProjectInput({
     }
   }, [openProjectWindow]);
 
+  console.log(selectedProject);
+
   return (
     <div className="flex flex-col gap-2">
       <span className="text-[14px] font-medium text-slate-600">Project Name</span>
       <div className="flex gap-3 justify-between">
         <div className="w-full">
+
           <input
             {...register("projectName")}
             placeholder="Enter project name..."
             className="w-full rounded-md border text-slate-700 outline-none p-[10px] text-[13px]"
           />
           {errors.projectName && (
-            <p className="text-red-500 text-[11px] mt-2">{errors.projectName.message}</p>
+            <p className="text-red-500 text-[11px] mt-2">
+              {errors.projectName.message}</p>
           )}
         </div>
         <div
@@ -195,7 +225,7 @@ function ProjectInput({
           className="w-12 h-10 text-white flex items-center justify-center bg-orange-600 rounded-lg cursor-pointer"
         >
           {selectedIcon ? (
-            <LibraryBooksIcon />
+            getIconComponent(selectedIcon?.name, "text-white")
           ) : (
             <LibraryBooksIcon />
           )}
@@ -206,9 +236,19 @@ function ProjectInput({
 }
 
 function Footer({ handleClose }: { handleClose: () => void }) {
+
+  handleClose,
+  isLoading,
+}: {
+  handleClose:()=> void;
+  isLoading:boolean;
+}) {
   const {
-    selectedIconObject: { setSelectedIcon },
-  } = useContextApp();
+    selectedIconObject: {setSelectedIcon},
+    selectedProjectObject: {selectedProject, setSelectedProject},
+  }= useContextApp();
+
+  
 
   return (
     <div className="w-[102%] p-[12px] mt-8 mb-4 flex gap-3 justify-end items-center">
@@ -227,7 +267,11 @@ function Footer({ handleClose }: { handleClose: () => void }) {
         type="submit"
         className="bg-orange-700 hover:bg-orange-700 text-white text-[13px] p-2 px-4 rounded-md transition-all"
       >
-        Add Project
+        {isLoading
+          ? "saving..."
+          :selectedProject
+          ? "Edit Project"
+          : "Add Project"}
       </button>
     </div>
   );
