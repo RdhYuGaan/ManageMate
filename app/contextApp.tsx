@@ -18,8 +18,9 @@ const defaultState: AppType = {
     allProjectsObject: { allProjects: [], setAllProjects: () => {} },
     dropDownPositionsObject: { dropDownPositions: { top: 0, left: 0 }, setDropDownPositions: () => {} },
     openDropDownObject: { openDropDown: false, setOpenDropDown: () => {} },
-    openConfirmationWindowObject: { openConfirmationWindow: false, setOpenConfirmationWindow: () => {} }, // Added properly here
-    selectedProjectObject: { selectedProject: null, setSelectedProject: () => {} }, // Added properly here
+    openConfirmationWindowObject: { openConfirmationWindow: false, setOpenConfirmationWindow: () => {} }, 
+    selectedProjectObject: { selectedProject: null, setSelectedProject: () => {} }, 
+    sortingOptionObject: {sortingOptions: [], setSortingOptions:()=>{}},
 };
 
 
@@ -30,7 +31,7 @@ const ContextApp = createContext<AppType>(defaultState);
 
 
 // Create provider
-export default function ContextappProvider({ children }: { children: React.ReactNode }) {
+export default function ContextappProvider({ children }: { children: React.ReactNode; }) {
     const [openSideBar, setOpenSideBar] = useState(false);
     const [isMobileView, setIsMobileView] = useState(false);
     const [sideBarMenu, setSideBarMenu] = useState<SidebarMenuItem[]>([
@@ -47,8 +48,27 @@ export default function ContextappProvider({ children }: { children: React.React
     const [dropDownPositions, setDropDownPositions] = useState({ top: 0, left: 0 });
 
     // Additional states
-    const [openConfirmationWindow, setOpenConfirmationWindow] = useState(false);
+    
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+    const [openConfirmationWindow, setOpenConfirmationWindow] = useState(false);
+
+    const [sortingOptions, setSortingOptions] = useState([
+        {
+            catagory: "Order",
+            options: [
+                {label: "A-Z", value: "asc", selected:true},
+                {label: "Z-A", value: "desc", selected:false},,
+            ],
+        },
+        {
+            catagory: "Date",
+            options: [
+                {label:"Newest", value: "newest", selected:false},
+                {label:"Oldest", value: "oldest", selected:false},
+
+            ],
+        },
+    ]);
 
     // Screen resizing
     useEffect(() => {
@@ -78,6 +98,11 @@ export default function ContextappProvider({ children }: { children: React.React
     useEffect(() => {
         if (!isMobileView) setOpenSideBar(false);
     }, [isMobileView]);
+
+    //close sidebar when side bar menu is selected
+    useEffect(()=>{
+        setOpenSideBar(false);
+    },[sideBarMenu]);
 
     return (
         <ContextApp.Provider

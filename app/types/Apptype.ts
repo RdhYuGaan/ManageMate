@@ -13,13 +13,27 @@ export interface IconData {
     icon:React.ReactNode;
     isSelected:boolean;
 }
+type SortingOptions= {
+    catagory: string;
+    options: {
+        label: string;
+        value: string;
+        selected:boolean;
+    }[];
+};
 
 
 export type AppType = {
+    
+        sortingOptionObject: {
+            sortingOptions: SortingOption[];
+            setSortingOptions: React.Dispatch<React.SetStateAction<SortingOption[]>>;
+        };
+    
     openSideBarObject: {
         openSideBar: boolean;
         setOpenSideBar: React.Dispatch<React.SetStateAction<boolean>>;
-    },
+    };
     sideBarMenuObject: {
         sideBarMenu: SidebarMenuItem[];
         setSideBarMenu: React.Dispatch<React.SetStateAction<SidebarMenuItem[]>>;
