@@ -13,7 +13,6 @@ import {
   SubmitHandler,
   UseFormRegister,
   FieldErrors,
-  UseFormReset,
 } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -51,60 +50,82 @@ export function ProjectWindow() {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
+  // Submit handler
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
     const existingProject = allProjects.find(
-      (project) => project.title.toLowerCase() === data.projectName.toLowerCase()
+      (project) =>
+        project.title.toLowerCase() === data.projectName.toLowerCase()
     );
 
-    if (existingProject) {
+    if (existingProject && !selectedProject) {
       setError("projectName", {
         type: "manual",
         message: "Project already exists",
       });
       setFocus("projectName");
-    } else {
-      projectsFunction(data);
+      return;
     }
-  };
 
-  async function projectsFunction(data: FormData) {
     try {
       setLoading(true);
+
+      // Simulate a delay
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      const newProject = {
-        id: uuidv4(),
-        title: data.projectName,
-        icon: selectedIcon?.name || "DefaultIcon",
-        tasks: [],
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      };
+      if (!selectedProject) {
+        addNewProject(data);
+      } else {
+        editExistingProject(data);
+      }
 
-      setAllProjects([...allProjects, newProject]);
-      setOpenProjectWindow(false);
-      reset();
-
-      toast.success("Project added successfully");
+      toast.success(
+        `Project ${selectedProject ? "edited" : "added"} successfully`
+      );
+      handleClose();
     } catch (error) {
       console.error(error);
       toast.error("Something went wrong");
     } finally {
       setLoading(false);
     }
-  }
+  };
+
+  const addNewProject = (data: FormData) => {
+    const newProject = {
+      id: uuidv4(),
+      title: data.projectName,
+      icon: selectedIcon?.name || "DefaultIcon",
+      tasks: [],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    setAllProjects([...allProjects, newProject]);
+  };
+
+  const editExistingProject = (data: FormData) => {
+    const updatedProjects = allProjects.map((project) =>
+      project.id === selectedProject.id
+        ? { ...project, title: data.projectName, icon: selectedIcon?.name }
+        : project
+    );
+    setAllProjects(updatedProjects);
+    setSelectedProject(null);
+  };
 
   const handleClose = () => {
     setOpenProjectWindow(false);
     reset();
+    setSelectedIcon(null);
+    setSelectedProject(null);
   };
 
   useLayoutEffect(() => {
     if (openProjectWindow) {
-      if (!selectedProject) {
-        reset();
-      } else {
+      if (selectedProject) {
         setValue("projectName", selectedProject.title);
+      } else {
+        reset();
       }
     }
   }, [openProjectWindow, selectedProject, reset, setValue]);
@@ -117,7 +138,10 @@ export function ProjectWindow() {
             -translate-x-1/2 absolute flex flex-col gap-3 border border-slate-50 bg-white rounded-lg shadow-md`}
     >
       <Header handleClose={handleClose} />
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 pt-8 px-7 mt-3">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-2 pt-8 px-7 mt-3"
+      >
         <ProjectInput register={register} errors={errors} />
         <Footer handleClose={handleClose} isLoading={isLoading} />
       </form>
@@ -144,11 +168,7 @@ function Header({ handleClose }: { handleClose: () => void }) {
       <CloseOutlinedIcon
         sx={{ fontSize: "18px" }}
         className="text-slate-300 cursor-pointer"
-        onClick={() => {
-          setSelectedIcon(null);
-          setSelectedProject(null);
-          handleClose();
-        }}
+        onClick={handleClose}
       />
     </div>
   );
@@ -168,7 +188,9 @@ function ProjectInput({
 
   return (
     <div className="flex flex-col gap-2">
-      <span className="text-[14px] font-medium text-slate-600">Project Name</span>
+      <span className="text-[14px] font-medium text-slate-600">
+        Project Name
+      </span>
       <div className="flex gap-3 justify-between">
         <div className="w-full">
           <input
@@ -177,7 +199,9 @@ function ProjectInput({
             className="w-full rounded-md border text-slate-700 outline-none p-[10px] text-[13px]"
           />
           {errors.projectName && (
-            <p className="text-red-500 text-[11px] mt-2">{errors.projectName.message}</p>
+            <p className="text-red-500 text-[11px] mt-2">
+              {errors.projectName.message}
+            </p>
           )}
         </div>
         <div
@@ -195,7 +219,13 @@ function ProjectInput({
   );
 }
 
-function Footer({ handleClose, isLoading }: { handleClose: () => void; isLoading: boolean }) {
+function Footer({
+  handleClose,
+  isLoading,
+}: {
+  handleClose: () => void;
+  isLoading: boolean;
+}) {
   return (
     <div className="w-[102%] p-[12px] mt-8 mb-4 flex gap-3 justify-end items-center">
       <button
@@ -208,7 +238,9 @@ function Footer({ handleClose, isLoading }: { handleClose: () => void; isLoading
 
       <button
         type="submit"
-        className="bg-orange-700 hover:bg-orange-700 text-white text-[13px] p-2 px-4 rounded-md transition-all"
+        className={`bg-orange-700 text-white text-[13px] p-2 px-4 rounded-md transition-all ${
+          isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-orange-800"
+        }`}
       >
         {isLoading ? "Saving..." : "Add Project"}
       </button>

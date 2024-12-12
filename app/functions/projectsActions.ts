@@ -48,3 +48,34 @@ export function deleteProject(
     setOpenConfirmationWindow(false);
   }
 }
+export function editProject(
+  selectedProject: Project | null,
+  setSelectedProject: React.Dispatch<React.setStateAction<Project | null>>,
+  data: FormData,
+  selectedIcon: IconData | null,
+  allProjects: Project[],
+  setAllProjects: React.Dispatch<React.setStateAction<Project[]>>,
+  setOpenConfirmationWindow: React.Dispatch<React.setStateAction<boolean>>,
+) {
+  if (selectedProject) {
+    const updateProject: Project= {
+      ...selectedProject,
+      title: data.projectName,
+      icon:selectedIcon?.name || "LocalLibrary",
+
+    };
+
+    const updateAllProjects= allProjects.map((project)=> {
+      if (project.id===selectedProject.id){
+        return updateProject;
+      }
+      return project;
+
+    });
+    setAllProjects(updateAllProjects);
+    setSelectedProject(null);
+    setOpenConfirmationWindow(false);
+
+  }
+
+}
