@@ -1,34 +1,65 @@
 "use client";
 import { useContextApp } from "@/app/contextApp";
-import React, {useState} from "react";
+import React, {useState, useEffect, useRef} from "react";
 
 function SortingDropDown() {
     const {
-        sortingOptionObject: { sortingOptions, setSortingOption },
+        sortingOptionObject: { sortingOptions, setSortingOptions},
+        openSortingDropDownObject: {openSortingDropDown, setOpentSortingDropDown},
+        sortingDropDownPositionsObject:{sortingDropDownPositions},
     } = useContextApp();
 
-    // const [sortingOptions, setSortingOptions] = useState([
-    //     {
-    //         catagory: "Order",
-    //         options: [
-    //             {label: "A-Z", value: "asc", selected:true},
-    //             {label: "Z-A", value: "desc", selected:false},,
-    //         ],
-    //     },
-    //     {
-    //         catagory: "Date",
-    //         options: [
-    //             {label:"Newest", value: "newest", selected:false},
-    //             {label:"Oldest", value: "oldest", selected:false},
+    const dropDownRef=useRef<HTMLDivElement>(null);
 
-    //         ],
-    //     },
-    // ]);
+    useEffect(()=>{
+        function handleClickOutside(event:MouseEvent) {
+            if (
+                dropDownRef.current &&
+                !dropDownRef.current.contains(event.target as Node)
+            ) {
+                //close drop down menu if user click outsize
+                setOpentSortingDropDown(false);
+
+            }
+        }
+
+        function handleReSize(){
+            //close dropdown menu when window is  resize
+            setOpentSortingDropDown(false);
+
+        }
+
+        if(openSortingDropDown) {
+            document.addEventListener("mousedown", handleClickOutsize);
+            window.addEventListener("resize" , handleReSize);
+
+        }else {
+            document.removeEventListener("mousedown", handleClickOutsize);
+            window.removeEventListener("resize" , handleReSize);
+            //restore scrolling
+
+        }
+        return ()=> {
+            document.removeEventListener("mousedown", handleClickOutsize);
+            window.removeEventListener("resize" , handleReSize);
+            //restore scrolling to cleanup
+            
+        };
+    },[openSortingDropDown, setOpenSortingDropDown]);
+
+    
+
 
     return (
         <div
-            className="bg-white text-sm top-[226px] right-60 z-[60] px-5 border-slate-50
-            fixed py-6 w-[160px] select-none shadow-md rounded-lg flex flex-col"
+            ref={dropDownRef}
+            style={{
+                top: `${sortingDropDownPositions.top}px`,
+                left: `${sortingDropDownPositions.left}px`,
+                width: `${sortingDropDownPositions.width}px`,
+            }}
+            className={`bg-white text-sm top-[226px] right-60 z-[60] px-5 border-slate-50
+            fixed py-6 w-[160px] select-none shadow-md rounded-lg flex flex-col ${openSortingDropDown ? "block": "hidden"}`}
         >
             {/* Each category */}
             {sortingOptions.map((catagory, catagoryIndex) => (
