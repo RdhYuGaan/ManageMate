@@ -22,8 +22,26 @@ type SortingOptions= {
     }[];
 };
 
+type SortingDropDownPosition={
+    left: number;
+    top:number;
+    width?: number;
+
+}
+
 
 export type AppType = {
+        sortingdropDownPositionsObject: {
+            sortingDropDownPositions: SortingDropDownPositions;
+            setSortingDropDownPositions: React.Dispatch<
+            React.SetStateAction<sortingDropDownPosition>
+            >;
+        };
+        openSortingDropDownObject: {
+            openSortingDropDown: boolean;
+            setOpenSortingDropDown: React.Dispatch<React.SetStateAction<boolean>>;
+        };
+
     
         sortingOptionObject: {
             sortingOptions: SortingOption[];

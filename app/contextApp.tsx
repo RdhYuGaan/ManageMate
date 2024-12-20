@@ -21,6 +21,14 @@ const defaultState: AppType = {
     openConfirmationWindowObject: { openConfirmationWindow: false, setOpenConfirmationWindow: () => {} }, 
     selectedProjectObject: { selectedProject: null, setSelectedProject: () => {} }, 
     sortingOptionObject: {sortingOptions: [], setSortingOptions:()=>{}},
+    openSortingDroppDownObject: {
+        openSortingDropDown: false,
+        setOpenSortingDropDown: ()=> {},
+    },
+    sortingDropDownPositionsObject: {
+        sortingDropDownPositions:{left:0, top:0},
+        setOpenSortingDropDownPositions: ()=> {},
+    },
 };
 
 
@@ -31,7 +39,11 @@ const ContextApp = createContext<AppType>(defaultState);
 
 
 // Create provider
-export default function ContextappProvider({ children }: { children: React.ReactNode; }) {
+export default function ContextappProvider({ 
+    children,
+ }: { children: React.ReactNode; 
+
+ }) {
     const [openSideBar, setOpenSideBar] = useState(false);
     const [isMobileView, setIsMobileView] = useState(false);
     const [sideBarMenu, setSideBarMenu] = useState<SidebarMenuItem[]>([
@@ -50,7 +62,7 @@ export default function ContextappProvider({ children }: { children: React.React
     // Additional states
     
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-    const [openConfirmationWindow, setOpenConfirmationWindow] = useState(false);
+    const [openConfirmationWindow, setOpenConfirmationWindow] = useState<boolean>(false);
 
     const [sortingOptions, setSortingOptions] = useState([
         {
@@ -69,6 +81,12 @@ export default function ContextappProvider({ children }: { children: React.React
             ],
         },
     ]);
+
+    const [openSortingDropDown, setOpenSortingDropDown]=useState(false);
+    const [sortingDropDownPositions,setOpenSortingDropDownPositions]=useState({
+        top:0,
+        left:0,
+    });
 
     // Screen resizing
     useEffect(() => {

@@ -42,15 +42,22 @@ function MoreDropDown() {
                 setSelectedProject(null);
             }
         }
+        function handleResize(){
+            //close dropdown menu when the window is resize
+            setOpenDropDown(false);
+        }
 
         if (openDropDown) {
             document.addEventListener("mousedown", handleClickOutside);
+            window.addEventListener("resize", handleReSize);
         } else {
             document.removeEventListener("mousedown", handleClickOutside);
+            window.removeEventListener("resize", handleReSize);
         }
 
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
+            window.removeEventListener("resize", handleReSize);
         };
     }, [openDropDown, setOpenDropDown]);
 
