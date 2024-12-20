@@ -1,53 +1,47 @@
 import React from "react";
 import { Project } from "../Data/AllProjects";
 
-export type SidebarMenuItem ={
-    id:number;
-    name:string;
-    isSelected:boolean;
+export type SidebarMenuItem = {
+    id: number;
+    name: string;
+    isSelected: boolean;
 };
 
 export interface IconData {
     id: number;
     name: string;
-    icon:React.ReactNode;
-    isSelected:boolean;
+    icon: React.ReactNode;
+    isSelected: boolean;
 }
-type SortingOptions= {
-    catagory: string;
+
+type SortingOption = {
+    category: string;
     options: {
         label: string;
         value: string;
-        selected:boolean;
+        selected: boolean;
     }[];
 };
 
-type SortingDropDownPosition={
+type SortingDropDownPosition = {
     left: number;
-    top:number;
+    top: number;
     width?: number;
-
-}
-
+};
 
 export type AppType = {
-        sortingdropDownPositionsObject: {
-            sortingDropDownPositions: SortingDropDownPositions;
-            setSortingDropDownPositions: React.Dispatch<
-            React.SetStateAction<sortingDropDownPosition>
-            >;
-        };
-        openSortingDropDownObject: {
-            openSortingDropDown: boolean;
-            setOpenSortingDropDown: React.Dispatch<React.SetStateAction<boolean>>;
-        };
-
-    
-        sortingOptionObject: {
-            sortingOptions: SortingOption[];
-            setSortingOptions: React.Dispatch<React.SetStateAction<SortingOption[]>>;
-        };
-    
+    sortingDropDownPositionsObject: {
+        sortingDropDownPositions: SortingDropDownPosition;
+        setSortingDropDownPositions: React.Dispatch<React.SetStateAction<SortingDropDownPosition>>;
+    };
+    openSortingDropDownObject: {
+        openSortingDropDown: boolean;
+        setOpenSortingDropDown: React.Dispatch<React.SetStateAction<boolean>>;
+    };
+    sortingOptionObject: {
+        sortingOptions: SortingOption[];
+        setSortingOptions: React.Dispatch<React.SetStateAction<SortingOption[]>>;
+    };
     openSideBarObject: {
         openSideBar: boolean;
         setOpenSideBar: React.Dispatch<React.SetStateAction<boolean>>;
@@ -55,7 +49,7 @@ export type AppType = {
     sideBarMenuObject: {
         sideBarMenu: SidebarMenuItem[];
         setSideBarMenu: React.Dispatch<React.SetStateAction<SidebarMenuItem[]>>;
-    },
+    };
     openProjectWindowObject: {
         openProjectWindow: boolean;
         setOpenProjectWindow: React.Dispatch<React.SetStateAction<boolean>>;
@@ -87,24 +81,17 @@ export type AppType = {
         openDropDown: boolean;
         setOpenDropDown: React.Dispatch<React.SetStateAction<boolean>>;
     };
-    openConfirmationWindowObject: { // Add this property
+    openConfirmationWindowObject: {
         openConfirmationWindow: boolean;
         setOpenConfirmationWindow: React.Dispatch<React.SetStateAction<boolean>>;
     };
-    selectedProjectObject: { // Add this property too (if not already defined)
+    selectedProjectObject: {
         selectedProject: Project | null;
         setSelectedProject: React.Dispatch<React.SetStateAction<Project | null>>;
     };
 };
 
-
-
-export type sideBarMenuObject= {
-    sideBarMenuObject: {
-        sideBarMenu: SidebarMenuItem[];
-        setSideBarMenu: React.Dispatch<React.SetStateAction<SidebarMenuItem[]>>;
-    }
-}
-
-
-
+export type SideBarMenuObject = {
+    sideBarMenu: SidebarMenuItem[];
+    setSideBarMenu: React.Dispatch<React.SetStateAction<SidebarMenuItem[]>>;
+};
