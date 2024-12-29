@@ -1,7 +1,9 @@
 "use client";
 
 import { useContextApp } from "@/app/contextApp";
-import React, { useEffect, useRef } from "react";
+import { sortProjects } from "@/app/functions/sortingFunctions";
+import AllProjects from "@/app/Pages/AllProjects/Components/AllProjects";
+import React, { useCallback, useEffect, useRef } from "react";
 
 function SortingDropDown() {
     const {
@@ -41,6 +43,22 @@ function SortingDropDown() {
             window.removeEventListener("resize", handleResize);
         };
     }, [openSortingDropDown, setOpenSortingDropDown]);
+
+    const sortAllProjects = useCallback(()=>{
+        const currentSortingOption= sortingOptions
+        .flatMap((category)=>category.options)
+        .find((option)=>option.selected);
+
+        const selectedOption= currentSortingOption;
+        return sortProjects(AllProjects, selectedOption?.value);
+    },[AllProjects]);
+
+    useEffect(()=> {
+        const sortedProjects=sortAllProjects();
+        if (JSON.stringify(sortProjects) !== JSON.stringify(AllProjects)) {
+            setAllProjects(sortedProjects);
+        }
+    },[allProjects]);
 
     function handleOptionSelected(categoryIndex: number, optionIndex: number) {
         // Update selection in the sorting options array
