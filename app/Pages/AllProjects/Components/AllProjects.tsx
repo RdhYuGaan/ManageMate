@@ -1,7 +1,7 @@
 import ProjectsHeader from "./ProjectHeader";
 import  ProjectsSubHeader from "./ProjectsubHeader";
 import AllProjectsSection from "./AllProjectsSection";
-import StatsRightBar from "./StatsRightBar";
+import StatsRightBar from "./StatsRightSideBar";
 
 
 function AllProjects(){

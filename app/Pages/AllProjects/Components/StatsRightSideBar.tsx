@@ -1,9 +1,12 @@
-import React from 'react'
-
+import React,{useMemo} from 'react';
 import  SplitscreenIcon from '@mui/icons-material/Splitscreen';
+import { useContextApp } from '@/app/contextApp';
+import {CircularProgressbar, buildStyles} from "react-circular-progressbar";
+import "react-circular-progressbar/dist/style.css";
+import {Project} from "@/app/Data/AllProjects";
 
 
-function StatsRightBar(){
+function StatsRightSideBar(){
     return(
         <div className='w-[22%] flex justify-end items-center max-lg:hidden'>
             <div className='h-[92%] w-[94%] bg-white rounded-l-3xl p-3 flex flex-col'>
@@ -18,10 +21,6 @@ function StatsRightBar(){
     );
 
 }
-
-
-
-
 function ProjectsList(){
     return (
         
@@ -37,8 +36,6 @@ function ProjectsList(){
         </ul>
     );    
 }
-
-
 function SingleProject(){
     return (
         <li className='p-3 flex gap-2 items-center'>
@@ -54,7 +51,6 @@ function SingleProject(){
         </li>
     );
 }
-
 function Header(){
     return(
         <h2 className='text-[22px] font-bold text-slate-800 text-center mt-7'>
@@ -62,7 +58,6 @@ function Header(){
         </h2>
     );
 }
-
 function ProjectsCompletedLables(){
     return (
         <div className='flex justify-center flex-col gpa-1 items-center'>
@@ -71,7 +66,6 @@ function ProjectsCompletedLables(){
         </div>
     );
 }
-
 function CircularChart(){
     return (
         <div className='flex justify-center items-center'>
@@ -88,4 +82,4 @@ function CircularChart(){
 }
 
 
-export default StatsRightBar;
+export default StatsRightSideBar;
