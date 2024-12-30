@@ -89,6 +89,11 @@ export type AppType = {
         selectedProject: Project | null;
         setSelectedProject: React.Dispatch<React.SetStateAction<Project | null>>;
     };
+    chosenProjectObject: {
+        chosenProject: Project | null;
+        setChosenProject:  React.Dispatch<React.SetStateAction<Project | null>>;
+    }
+    
 };
 
 export type SideBarMenuObject = {

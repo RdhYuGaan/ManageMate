@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useMemo } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import CircleIcon from "@mui/icons-material/Circle";
 import { Project } from "@/app/Data/AllProjects";
@@ -7,30 +7,33 @@ import { LibraryAdd } from "@mui/icons-material";
 import { useContextApp } from "@/app/contextApp";
 
 function SingleProjectCard({ project }: { project: Project }) {
-    const daysLeft = calculateDaysLeft(project.createdAt);
-    const progressPercentage = calculateProgressPercentage(
-        project.tasks.length,
-        project.tasks.filter((task) => task.status === "Completed").length
+    const daysLeft = useMemo(() => calculateDaysLeft(project.createdAt), [project.createdAt]);
+    const progressPercentage = useMemo(
+        () =>
+            calculateProgressPercentage(
+                project.tasks.length,
+                project.tasks.filter((task) => task.status === "Completed").length
+            ),
+        [project.tasks]
     );
 
     return (
         <li className="flex flex-col max-md:w-[96%] h-[306px] gap-8 rounded-lg p-7 bg-white shadow-sm">
-            <ProjectCardHeader  />
-            <ProjectCardBody />
-            <ProjectCardFooter  />
+            <ProjectCardHeader project={project} />
+            <ProjectCardBody project={project} />
+            <ProjectCardFooter progressPercentage={progressPercentage} />
         </li>
     );
 }
 
-function ProjectCardHeader(){
-
+function ProjectCardHeader({ project }: { project: Project }) {
     const threeDotsRef = useRef<HTMLDivElement>(null);
     const {
         dropDownPositionsObject: { setDropDownPositions },
         openDropDownObject: { setOpenDropDown },
-        selectedProjectObject: {setSelectedProject, },
-        chosenProjectObject: {setChosenProject},
-        sideBarMenuObject : {setSideBarMenu},
+        selectedProjectObject: { setSelectedProject },
+        chosenProjectObject: { setChosenProject },
+        sideBarMenuObject: { setSideBarMenu },
     } = useContextApp();
 
     function openDropDown(event: React.MouseEvent) {
@@ -45,34 +48,26 @@ function ProjectCardHeader(){
                 left: left + window.scrollX,
             });
             setOpenDropDown(true);
-            //select the project when clicked
             setSelectedProject(project);
         }
     }
-    
-    function showAllTasksOfProject(){
-        //update the chosen project variable
+
+    function showAllTasksOfProject() {
         setChosenProject(project);
-
-        //go to all tasks page by using the size menu items
-        setSideBarMenu((prevState)=>
-            prevState.map((item)=>({
+        setSideBarMenu((prevState) =>
+            prevState.map((item) => ({
                 ...item,
-                isSelected: item.id === 2 ? true: false,
-
+                isSelected: item.id === 2,
             }))
         );
     }
 
     return (
         <div className="flex justify-between items-center mb-1">
-            {/* title and iCon */}
             <div className="flex gap-3 items-center">
-                {/* project icon */}
                 <div className="bg-orange-600 flex justify-center w-[30px] h-[30px] items-center rounded-md">
                     {getIconComponent(project.icon, "text-white", "23px")}
                 </div>
-                {/* project title */}
                 <div className="flex flex-col">
                     <span className="font-semibold text-[19px] hover:text-orange-600 cursor-pointer">
                         {truncateString(project.title, 25)}
@@ -88,6 +83,7 @@ function ProjectCardHeader(){
                 ref={threeDotsRef}
                 onClick={openDropDown}
                 className="w-6 h-6 flex justify-center items-center rounded-full bg-slate-100 cursor-pointer"
+                aria-label="More options"
             >
                 <MoreVertIcon className="text-slate-800 text-[19px]" />
             </div>
@@ -100,7 +96,11 @@ function ProjectCardBody({ project }: { project: Project }) {
         <div className="h-[80px] flex flex-col gap-3 mb-1">
             {project.tasks.length === 0 && (
                 <div className="flex justify-center flex-col gap-3 mt-[15px] items-center h-full">
-                    <LibraryAdd className="text-slate-400 opacity-40 text-[26px] cursor-pointer hover:opacity-100 hover:text-orange-600" />
+                    <LibraryAdd
+                        className="text-slate-400 opacity-40 text-[26px] cursor-pointer hover:opacity-100 hover:text-orange-600"
+                        onClick={() => alert("Add a new task!")}
+                        aria-label="Add a new task"
+                    />
                     <span className="text-slate-400 opacity-45 text-[13px]">
                         No tasks created yet...
                     </span>
@@ -131,6 +131,7 @@ function ProjectCardFooter({ progressPercentage }: { progressPercentage: number 
                     <div
                         style={{ width: `${progressPercentage}%` }}
                         className="bg-orange-600 h-full rounded-r-xl"
+                        aria-label={`Progress: ${progressPercentage}%`}
                     ></div>
                 </div>
                 <div className="flex justify-between w-full">

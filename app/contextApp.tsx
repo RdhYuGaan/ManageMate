@@ -5,8 +5,6 @@ import { AppType, IconData, SidebarMenuItem } from "./types/Apptype";
 import { allIconsArray } from "./Data/AllIcons";
 import { Project, projectsdata } from "./Data/AllProjects";
 
-
-// Default state
 // Default state
 const defaultState: AppType = {
     openSideBarObject: { openSideBar: false, setOpenSideBar: () => {} },
@@ -20,30 +18,22 @@ const defaultState: AppType = {
     openDropDownObject: { openDropDown: false, setOpenDropDown: () => {} },
     openConfirmationWindowObject: { openConfirmationWindow: false, setOpenConfirmationWindow: () => {} }, 
     selectedProjectObject: { selectedProject: null, setSelectedProject: () => {} }, 
-    sortingOptionObject: {sortingOptions: [], setSortingOptions:()=>{}},
+    sortingOptionObject: { sortingOptions: [], setSortingOptions: () => {} },
     openSortingDroppDownObject: {
         openSortingDropDown: false,
-        setOpenSortingDropDown: ()=> {},
+        setOpenSortingDropDown: () => {},
     },
     sortingDropDownPositionsObject: {
-        sortingDropDownPositions:{left:0, top:0},
-        setOpenSortingDropDownPositions: ()=> {},
+        sortingDropDownPositions: { left: 0, top: 0 },
+        setSortingDropDownPositions: () => {},
     },
 };
-
-
 
 // Create context
 const ContextApp = createContext<AppType>(defaultState);
 
-
-
 // Create provider
-export default function ContextappProvider({ 
-    children,
- }: { children: React.ReactNode; 
-
- }) {
+export default function ContextappProvider({ children }: { children: React.ReactNode }) {
     const [openSideBar, setOpenSideBar] = useState(false);
     const [isMobileView, setIsMobileView] = useState(false);
     const [sideBarMenu, setSideBarMenu] = useState<SidebarMenuItem[]>([
@@ -58,42 +48,26 @@ export default function ContextappProvider({
     const [allProjects, setAllProjects] = useState<Project[]>([]);
     const [openDropDown, setOpenDropDown] = useState(false);
     const [dropDownPositions, setDropDownPositions] = useState({ top: 0, left: 0 });
-
-    // Additional states
-    
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [openConfirmationWindow, setOpenConfirmationWindow] = useState<boolean>(false);
-
     const [sortingOptions, setSortingOptions] = useState([
         {
             catagory: "Order",
             options: [
-                {label: "A-Z", value: "asc", selected:true},
-                {label: "Z-A", value: "desc", selected:false},,
+                { label: "A-Z", value: "asc", selected: true },
+                { label: "Z-A", value: "desc", selected: false },
             ],
         },
         {
             catagory: "Date",
             options: [
-                {label:"Newest", value: "newest", selected:false},
-                {label:"Oldest", value: "oldest", selected:false},
-
+                { label: "Newest", value: "newest", selected: false },
+                { label: "Oldest", value: "oldest", selected: false },
             ],
         },
     ]);
-
-    const [openSortingDropDown, setOpenSortingDropDown]=useState(false);
-    const [sortingDropDownPositions,setOpenSortingDropDownPositions]=useState({
-        top:0,
-        left:0,
-    });
-
     const [openSortingDropDown, setOpenSortingDropDown] = useState(false);
-    const [SortingDropDownPositions, setSortingDropDownPositions] = useState({
-        top:0,
-        left:0,
-    });
-
+    const [sortingDropDownPositions, setSortingDropDownPositions] = useState({ top: 0, left: 0 });
     const [chosenProject, setChosenProject] = useState<Project | null>(null);
 
     // update window size
@@ -125,10 +99,10 @@ export default function ContextappProvider({
         if (!isMobileView) setOpenSideBar(false);
     }, [isMobileView]);
 
-    //close sidebar when side bar menu is selected
-    useEffect(()=>{
+    // Close sidebar when side bar menu is selected
+    useEffect(() => {
         setOpenSideBar(false);
-    },[sideBarMenu]);
+    }, [sideBarMenu]);
 
     return (
         <ContextApp.Provider
@@ -142,16 +116,18 @@ export default function ContextappProvider({
                 allProjectsObject: { allProjects, setAllProjects },
                 dropDownPositionsObject: { dropDownPositions, setDropDownPositions },
                 openDropDownObject: { openDropDown, setOpenDropDown },
-                openConfirmationWindowObject: { openConfirmationWindow, setOpenConfirmationWindow }, 
-                selectedProjectObject: { selectedProject, setSelectedProject }, 
-                chosenProjectObject: {chosenProject, setChosenProject},
+                openConfirmationWindowObject: { openConfirmationWindow, setOpenConfirmationWindow },
+                selectedProjectObject: { selectedProject, setSelectedProject },
+                chosenProjectObject: { chosenProject, setChosenProject },
+                sortingOptionObject: { sortingOptions, setSortingOptions },
+                openSortingDroppDownObject: { openSortingDropDown, setOpenSortingDropDown },
+                sortingDropDownPositionsObject: { sortingDropDownPositions, setSortingDropDownPositions },
             }}
         >
             {children}
         </ContextApp.Provider>
     );
 }
-
 
 // Create the hook
 export function useContextApp() {
