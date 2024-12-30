@@ -28,7 +28,9 @@ function ProjectCardHeader(){
     const {
         dropDownPositionsObject: { setDropDownPositions },
         openDropDownObject: { setOpenDropDown },
-        selectedProjectObject: {setSelectedProject, selectedProject},
+        selectedProjectObject: {setSelectedProject, },
+        chosenProjectObject: {setChosenProject},
+        sideBarMenuObject : {setSideBarMenu},
     } = useContextApp();
 
     function openDropDown(event: React.MouseEvent) {
@@ -47,7 +49,20 @@ function ProjectCardHeader(){
             setSelectedProject(project);
         }
     }
-    console.log(selectedProject);
+    
+    function showAllTasksOfProject(){
+        //update the chosen project variable
+        setChosenProject(project);
+
+        //go to all tasks page by using the size menu items
+        setSideBarMenu((prevState)=>
+            prevState.map((item)=>({
+                ...item,
+                isSelected: item.id === 2 ? true: false,
+
+            }))
+        );
+    }
 
     return (
         <div className="flex justify-between items-center mb-1">
@@ -57,8 +72,9 @@ function ProjectCardHeader(){
                 <div className="bg-orange-600 flex justify-center w-[30px] h-[30px] items-center rounded-md">
                     {getIconComponent(project.icon, "text-white", "23px")}
                 </div>
+                {/* project title */}
                 <div className="flex flex-col">
-                    <span className="font-semibold text-[19px]">
+                    <span className="font-semibold text-[19px] hover:text-orange-600 cursor-pointer">
                         {truncateString(project.title, 25)}
                     </span>
                     <span className="text-slate-600 text-[13px]">

@@ -88,7 +88,15 @@ export default function ContextappProvider({
         left:0,
     });
 
-    // Screen resizing
+    const [openSortingDropDown, setOpenSortingDropDown] = useState(false);
+    const [SortingDropDownPositions, setSortingDropDownPositions] = useState({
+        top:0,
+        left:0,
+    });
+
+    const [chosenProject, setChosenProject] = useState<Project | null>(null);
+
+    // update window size
     useEffect(() => {
         function handleResize() {
             setIsMobileView(window.innerWidth <= 940);
@@ -134,8 +142,9 @@ export default function ContextappProvider({
                 allProjectsObject: { allProjects, setAllProjects },
                 dropDownPositionsObject: { dropDownPositions, setDropDownPositions },
                 openDropDownObject: { openDropDown, setOpenDropDown },
-                openConfirmationWindowObject: { openConfirmationWindow, setOpenConfirmationWindow }, // Correctly included
-                selectedProjectObject: { selectedProject, setSelectedProject }, // Correctly included
+                openConfirmationWindowObject: { openConfirmationWindow, setOpenConfirmationWindow }, 
+                selectedProjectObject: { selectedProject, setSelectedProject }, 
+                chosenProjectObject: {chosenProject, setChosenProject},
             }}
         >
             {children}
