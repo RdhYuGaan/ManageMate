@@ -14,7 +14,7 @@ export interface IconData {
     isSelected: boolean;
 }
 
-type SortingOption = {
+export type SortingOption = {
     category: string;
     options: {
         label: string;
@@ -23,17 +23,31 @@ type SortingOption = {
     }[];
 };
 
-type SortingDropDownPosition = {
+export type SortingDropDownPosition = {
     left: number;
     top: number;
     width?: number;
 };
+
+export type TabOption = {
+    id: number;
+    name: string;
+    isSelected: boolean;
+};
+
+
 
 export type AppType = {
     sortingDropDownPositionsObject: {
         sortingDropDownPositions: SortingDropDownPosition;
         setSortingDropDownPositions: React.Dispatch<React.SetStateAction<SortingDropDownPosition>>;
     };
+
+    tabsOptionsObject: {
+        tabsOptions: TabOption[];
+        setTabsOptions: React.Dispatch<React.SetStateAction<TabOption[]>>;
+    };
+
     openSortingDropDownObject: {
         openSortingDropDown: boolean;
         setOpenSortingDropDown: React.Dispatch<React.SetStateAction<boolean>>;

@@ -25,52 +25,71 @@ function Tabs() {
   const {
     chosenProjectObject: { chosenProject },
     allProjectsObject: { allProjects },
+    tabsOptionsObject: {tabsOptions, setTabsOptions},
   } = useContextApp();
 
-  const countOnGoingTasks = () => {
-    // If a chosen project is selected, count tasks in progress using reduce method based on its status
+  function countOnGoingTasks() {
     if (chosenProject) {
-      return chosenProject.tasks.reduce(
-        (count, task) => count + (task.status === "In Progress" ? 1 : 0),
-        0
-      );
+      return chosenProject.tasks.reduce((accTask, task) => {
+        return accTask + (task.status === "In Progress" ? 1 : 0);
+      }, 0);
     }
 
-    // Count tasks in progress for all projects using nested reduce
-    return allProjects.reduce(
-      (projectCount, project) =>
-        projectCount +
-        project.tasks.reduce(
-          (taskCount, task) => taskCount + (task.status === "In Progress" ? 1 : 0),
-          0
-        ),
-      0
-    );
-  };
+    return allProjects.reduce((accProjects, project) => {
+      return (
+        accProjects +
+        project.tasks.reduce((accTasks, task) => {
+          return accTasks + (task.status === "In Progress" ? 1 : 0);
+        }, 0)
+      );
+    }, 0);
+  }
 
-  const completedTasks = () => {
-    // If a chosen project is selected, calculate the difference between ongoing tasks and the total number of tasks in the project
+  function completedTasks() {
     if (chosenProject) {
       return chosenProject.tasks.length - countOnGoingTasks();
     }
 
-    // For all projects, first count the total tasks, then calculate completed tasks
-    const totalTasks = allProjects.reduce((total, project) => total + project.tasks.length, 0);
-    return totalTasks - countOnGoingTasks();
-  };
+    const totalTasksInAllProjects = allProjects.reduce((acc, project) => {
+      return acc + project.tasks.length;
+    }, 0);
+
+    return totalTasksInAllProjects - countOnGoingTasks();
+  }
+
+  function switchTabs(index: number) {
+    setTabsOptions((prevState)=> 
+      prevState.map((tab, i) => ({
+        ...tab,
+        isSelected: index === i,
+      }))
+    );
+  }
 
   return (
     <div className="flex items-center mt-8 ml-3 gap-6 mb-5">
-      <div className="flex gap-2 text-orange-400 font-semibold">
-        <span>On Going Tasks</span>
-        {/* Display the count of ongoing tasks */}
-        <span className="px-2 bg-orange-400 text-white rounded-md max-[420px]:hidden">{countOnGoingTasks()}</span>
-      </div>
-      <div className="text-slate-400 flex gap-2 items-center">
-        <span>Completed Tasks</span>
-        {/* Display the count of completed tasks */}
-        <span className="rounded-md bg-slate-200 px-2 max-[420px]:hidden">{completedTasks()}</span>
-      </div>
+      {tabsOptions.map((singleTabOptions, index)=> (
+        <div 
+          key={index}
+          onClick={()=> switchTabs(index)}
+          className={`flex gap-2 cursor-pointer ${
+            singleTabOptions.isSelected
+              ? "text-orange-600 font-semibold"
+              : "text-slate-300"
+          }`}
+        >
+          <span>{singleTabOption.name}</span>
+          <span 
+            className={`${
+              singleTabOption.isSelected 
+              ? "bg-orange-600 " 
+              : "bg-slate-300"
+            }text-white px-2 rounded-md max-[420px]:hidden`}
+          >
+            {singleTabOptions.id === 1 ? countOnGoingTasks() : completedTasks()}
+          </span>
+        </div>
+      ))}
     </div>
   );
 }
@@ -81,36 +100,37 @@ function SingleTask() {
       <Checkbox />
       <div className="w-full bg-white rounded-lg border border-slate-100 flex gap-3 items-center justify-between p-5 py-6 max-sm:p-4">
         <div className="flex gap-3 items-center">
-          {/* Wallet icon */}
-          <div className="bg-orange-200 rounded-lg p-2 flex items-center justify-center">
-            <ListIcon className="text-orange-600" />
+          <div>
+            <div className="bg-orange-200 rounded-lg p-2 flex items-center justify-center">
+              <ListIcon className="text-orange-600" />
+            </div>
           </div>
-          {/* Wallet name */}
           <div className="flex flex-col">
             <span className="font-bold text-black hover:text-orange-600 cursor-pointer max-sm:text-sm">
               Create the UI design of the Task
             </span>
-            {/* Project label */}
-            <span className="text-slate-400 text-[13px]">Project</span>
+            <div className="flex">
+              <span className="text-slate-400 text-[13px] p-[2px]">Project</span>
+            </div>
           </div>
         </div>
+
         <div className="flex gap-36 font-bold items-center max-[770px]:hidden">
           <div className="flex gap-2 items-center">
-            {/* Status icon and label */}
             <CachedIcon className="text-[24px] text-slate-400" />
-            <span className="text-[14px] text-slate-400">In Progress</span>
+            <span className="text-[14px] text-slate-400">In Progress </span>
           </div>
+
           <div className="flex gap-2 items-center max-[940px]:hidden">
-            {/* Priority icon and label */}
             <CircleIcon className="text-[10px] text-green-600" />
             <span className="text-slate-400 text-[14px]">Low</span>
           </div>
+
           <div className="flex gap-2 items-center">
-            {/* Edit button */}
-            <div className="rounded-lg p-2 flex items-center justify-center cursor-pointer bg-orange-200 hover:bg-orange-300">
+            <div className="rounded-lg p-2 flex items-center transition-all justify-center cursor-pointer bg-orange-200 hover:bg-orange-300">
               <EditOutlinedIcon sx={{ fontSize: "17px" }} className="text-orange-600" />
             </div>
-            {/* Delete button */}
+
             <div className="rounded-lg p-2 flex items-center justify-center cursor-pointer bg-slate-200 hover:bg-slate-300">
               <DeleteOutlineOutlinedIcon sx={{ fontSize: "17px" }} className="text-slate-600" />
             </div>

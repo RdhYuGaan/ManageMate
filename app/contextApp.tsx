@@ -69,6 +69,10 @@ export default function ContextappProvider({ children }: { children: React.React
     const [openSortingDropDown, setOpenSortingDropDown] = useState(false);
     const [sortingDropDownPositions, setSortingDropDownPositions] = useState({ top: 0, left: 0 });
     const [chosenProject, setChosenProject] = useState<Project | null>(null);
+    const [TabsOptions, setTabsOptions]= useState<TabOption[]>([
+        {id:1,name: "On Going Tasks", isSelected: true},
+        {id:2, name: "Completed Tasks", isSelected: false},
+    ]);
 
     // update window size
     useEffect(() => {
@@ -107,6 +111,7 @@ export default function ContextappProvider({ children }: { children: React.React
     return (
         <ContextApp.Provider
             value={{
+                tabsOptionsObject: { tabsOptions, setTabsOptions},
                 openSideBarObject: { openSideBar, setOpenSideBar },
                 sideBarMenuObject: { sideBarMenu, setSideBarMenu },
                 openProjectWindowObject: { openProjectWindow, setOpenProjectWindow },
