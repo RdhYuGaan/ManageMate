@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { AppType, IconData, SidebarMenuItem } from "./types/Apptype";
+import { AppType, IconData, SidebarMenuItem, TabOption } from "./types/Apptype";
 import { allIconsArray } from "./Data/AllIcons";
 import { Project, projectsdata } from "./Data/AllProjects";
 
@@ -19,7 +19,7 @@ const defaultState: AppType = {
     openConfirmationWindowObject: { openConfirmationWindow: false, setOpenConfirmationWindow: () => {} }, 
     selectedProjectObject: { selectedProject: null, setSelectedProject: () => {} }, 
     sortingOptionObject: { sortingOptions: [], setSortingOptions: () => {} },
-    openSortingDroppDownObject: {
+    openSortingDropDownObject: {
         openSortingDropDown: false,
         setOpenSortingDropDown: () => {},
     },
@@ -27,6 +27,8 @@ const defaultState: AppType = {
         sortingDropDownPositions: { left: 0, top: 0 },
         setSortingDropDownPositions: () => {},
     },
+    tabsOptionsObject: { tabsOptions: [], setTabsOptions: () => {} },
+    chosenProjectObject: { chosenProject: null, setChosenProject: () => {} },
 };
 
 // Create context
@@ -52,14 +54,14 @@ export default function ContextappProvider({ children }: { children: React.React
     const [openConfirmationWindow, setOpenConfirmationWindow] = useState<boolean>(false);
     const [sortingOptions, setSortingOptions] = useState([
         {
-            catagory: "Order",
+            category: "Order",
             options: [
                 { label: "A-Z", value: "asc", selected: true },
                 { label: "Z-A", value: "desc", selected: false },
             ],
         },
         {
-            catagory: "Date",
+            category: "Date",
             options: [
                 { label: "Newest", value: "newest", selected: false },
                 { label: "Oldest", value: "oldest", selected: false },
@@ -69,7 +71,7 @@ export default function ContextappProvider({ children }: { children: React.React
     const [openSortingDropDown, setOpenSortingDropDown] = useState(false);
     const [sortingDropDownPositions, setSortingDropDownPositions] = useState({ top: 0, left: 0 });
     const [chosenProject, setChosenProject] = useState<Project | null>(null);
-    const [TabsOptions, setTabsOptions]= useState<TabOption[]>([
+    const [tabsOptions, setTabsOptions]= useState<TabOption[]>([
         {id:1,name: "On Going Tasks", isSelected: true},
         {id:2, name: "Completed Tasks", isSelected: false},
     ]);
@@ -125,7 +127,7 @@ export default function ContextappProvider({ children }: { children: React.React
                 selectedProjectObject: { selectedProject, setSelectedProject },
                 chosenProjectObject: { chosenProject, setChosenProject },
                 sortingOptionObject: { sortingOptions, setSortingOptions },
-                openSortingDroppDownObject: { openSortingDropDown, setOpenSortingDropDown },
+                openSortingDropDownObject: { openSortingDropDown, setOpenSortingDropDown },
                 sortingDropDownPositionsObject: { sortingDropDownPositions, setSortingDropDownPositions },
             }}
         >

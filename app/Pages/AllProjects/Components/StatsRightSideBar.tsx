@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import SplitscreenIcon from "@mui/icons-material/Splitscreen";
 import { useContextApp } from "@/app/contextApp";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/style.css";
+// import "react-circular-progressbar/dist/style.css";
 import { Project } from "@/app/Data/AllProjects";
 import SingleProjectCard from "./SingleProjectCard";
 

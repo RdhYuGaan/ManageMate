@@ -7,13 +7,7 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-hot-toast";
-
-import {
-  useForm,
-  SubmitHandler,
-  UseFormRegister,
-  FieldErrors,
-} from "react-hook-form";
+import { useForm, SubmitHandler, UseFormRegister, FieldErrors } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { getIconComponent } from "@/app/functions/IconsAction";
@@ -50,11 +44,9 @@ export function ProjectWindow() {
     resolver: zodResolver(schema),
   });
 
-  // Submit handler
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     const existingProject = allProjects.find(
-      (project) =>
-        project.title.toLowerCase() === data.projectName.toLowerCase()
+      (project) => project.title.toLowerCase() === data.projectName.toLowerCase()
     );
 
     if (existingProject && !selectedProject) {
@@ -68,8 +60,6 @@ export function ProjectWindow() {
 
     try {
       setLoading(true);
-
-      // Simulate a delay
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       if (!selectedProject) {
@@ -137,7 +127,7 @@ export function ProjectWindow() {
       } w-[48%] max-sm:w-[82%] max-[600px]:w-[93%] z-[80] p-3 left-1/2 top-[47%] -translate-y-1/2
             -translate-x-1/2 absolute flex flex-col gap-3 border border-slate-50 bg-white rounded-lg shadow-md`}
     >
-      <Header handleClose={handleClose} />
+      <Header handleClose={handleClose} selectedProject={selectedProject} />
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-2 pt-8 px-7 mt-3"
@@ -149,12 +139,13 @@ export function ProjectWindow() {
   );
 }
 
-function Header({ handleClose }: { handleClose: () => void }) {
-  const {
-    selectedIconObject: { setSelectedIcon },
-    selectedProjectObject: { setSelectedProject },
-  } = useContextApp();
-
+function Header({
+  handleClose,
+  selectedProject,
+}: {
+  handleClose: () => void;
+  selectedProject: any;
+}) {
   return (
     <div className="flex justify-between items-center pt-7 px-7">
       <div className="flex items-center gap-2">
