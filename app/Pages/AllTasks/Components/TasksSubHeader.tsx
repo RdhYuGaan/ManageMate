@@ -15,7 +15,7 @@ function TasksSubHeader() {
 function MyProjectsText() {
     const {
         chosenProjectObject: { chosenProject },
-        allProjectObject: { allProjects },
+        allProjectsObject: { allProjects }, // Changed here
     } = useContextApp();
 
     // Calculate total number of tasks across all projects
@@ -87,7 +87,7 @@ function MyProjectsText() {
 function SortByButton() {
     return (
         <div className="flex text-[15px] max-sm:flex-col max-sm:gap-1 font-semibold gap-3">
-            <span className="text-slate-600">Sort By</span>
+            <span className="text-slate-800">Sort By</span>
             <div className="flex gap-1 items-center cursor-pointer">
                 <span className="text-slate-800">Recent Projects</span>
                 <KeyboardArrowDownIcon

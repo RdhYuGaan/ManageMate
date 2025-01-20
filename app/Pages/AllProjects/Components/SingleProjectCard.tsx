@@ -70,7 +70,7 @@ function ProjectCardHeader({ project, daysLeft }: { project: Project; daysLeft: 
         </div>
         <div className="flex flex-col">
           <span
-            className="font-semibold text-[19px] hover:text-orange-600 cursor-pointer"
+            className="font-semibold text-[19px] text-black hover:text-orange-600 cursor-pointer"
             onClick={showAllTasksOfProject}
           >
             {truncateString(project.title, 25)}
@@ -109,7 +109,7 @@ function ProjectCardBody({ project }: { project: Project }) {
           </span>
         </div>
       )}
-      <ul className="text-slate-400 text-[13px] flex flex-col gap-2 ml-3">
+      <ul className="text-slate-500 text-[13px] flex flex-col gap-2 ml-3">
         {project.tasks.slice(0, 3).map((task) => (
           <li key={task.id} className="flex gap-2 items-center">
             <CircleIcon className="text-[8px]" />
@@ -138,7 +138,7 @@ function ProjectCardFooter({ progressPercentage }: { progressPercentage: number 
           ></div>
         </div>
         <div className="flex justify-between w-full">
-          <p className="text-[13px] text-slate-400">On Progress</p>
+          <p className="text-[13px] text-slate-500">On Progress</p>
           <div className="flex gap-1 text-[13px] text-slate-700">
             <p>{progressPercentage}%</p>
           </div>

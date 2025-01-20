@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import SplitscreenIcon from "@mui/icons-material/Splitscreen";
 import { useContextApp } from "@/app/contextApp";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-// import "react-circular-progressbar/dist/style.css";
+import "react-circular-progressbar/dist/styles.css"; // Ensure styles are imported
 import { Project } from "@/app/Data/AllProjects";
 import SingleProjectCard from "./SingleProjectCard";
 
@@ -101,7 +101,7 @@ function SingleProject({ project }: { project: Project }) {
 
 function Header() {
     return (
-        <h2 className="text-[22px] font-bold text-center mt-7">
+        <h2 className="text-[22px] font-bold text-black text-center mt-7">
             Projects Completed
         </h2>
     );
@@ -116,24 +116,25 @@ function ProjectsCompletedLabels({
 }) {
     return (
         <div className="flex justify-center flex-col gap-1 items-center">
-            <p className="font-bold text-[17px]">{completedProjects.length} Completed</p>
-            <p className="text-slate-400 text-[13px]">{completedTasks} Tasks done</p>
+            <p className="font-bold text-slate-700 text-[17px]">
+                {completedProjects.length} Completed
+            </p>
+            <p className="text-slate-700 text-[13px]">{completedTasks} Tasks done</p>
         </div>
     );
 }
 
 function CircularChart({ percentage }: { percentage: number }) {
     return (
-        <div className="w-40 h-40 mt-7 mb-1">
+        <div className="w-40 h-40 mt-7 mb-1 flex justify-center items-center">
             <CircularProgressbar
                 value={percentage}
                 text={`${percentage}%`}
                 styles={buildStyles({
-                    textSize: "16px",
-                    pathColor: `rgba(234, 88, 12, 2)`,
-                    textColor: "#f97316",
-                    trailColor: "#f1f5f9",
-                    backgroundColor: "#3e98c7",
+                    textSize: "18px", // Adjust text size for proper centering
+                    pathColor: "rgba(234, 88, 12, 1)", // Orange progress path
+                    textColor: "#f97316", // Orange text color
+                    trailColor: "#f1f5f9", // Light gray trail
                 })}
             />
         </div>
